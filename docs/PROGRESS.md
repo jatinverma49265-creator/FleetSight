@@ -24,6 +24,12 @@
 | **Loop 10** | Final Demo & Documentation | ✅ Complete | 2026-09-30 | Comprehensive `README.md` with system diagrams, quickstart, and metrics; 6-minute chronological live presentation script (`docs/demo.md`); QA and test evaluation report (`docs/qa.md`); zero-config execution verification (156 pytest + 6 Playwright tests + repeatable corridor scenario). |
 | **Loop 11** | Public Release Readiness | ✅ Complete | 2026-09-30 | Full secret scan passed (0 credentials/keys), Apache 2.0 license compliance, code hygiene, 100% test suite passing (156 pytest + 6 Playwright), and release tag `v1.0.0-sih2026`. |
 
+### Side Tasks & Enhancements
+
+| Task | Title | Status | Date | Scope & Key Deliverables |
+| :--- | :--- | :--- | :--- | :--- |
+| **UI-Pass** | FleetSight UI/UX Redesign | ✅ Complete | 2026-09-30 | Full UI/UX redesign implemented across Stages A-G inspired by Dribbble dashboard philosophy (`docs/UI_REDESIGN_SPEC.md`). Design tokens, segmented navigation, calm dark palette (`#080d14`), Recharts styling, Leaflet map styling, review screenshots in `docs/ui-review/`. 100% test integrity preserved (156 Pytest + 6 Playwright). |
+
 ---
 
 ## 2. Component Inventory & Audit

@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
-import { Filter, Layers, Navigation, Info, Eye, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Filter } from 'lucide-react';
 
 export default function MapView({ issues, onSelectIssue, selectedIssueId, activeFilter, setActiveFilter }) {
   const mapContainerRef = useRef(null);
@@ -71,10 +71,10 @@ export default function MapView({ issues, onSelectIssue, selectedIssueId, active
 
       const marker = L.marker([bus.lat, bus.lng], { icon: busIcon })
         .bindPopup(`
-          <div style="font-size: 12px; line-height: 1.4;">
-            <b style="color: #00d2b4;">🚌 Bus Sensing Unit: ${bus.id}</b>
-            <div style="color: #889ba8; margin-top: 4px;">${bus.route}</div>
-            <div style="font-size: 11px; margin-top: 4px;">Speed: <b>${bus.speed}</b> · Edge AI Active</div>
+          <div style="font-size: 12px; line-height: 1.4; color: #f8fafc;">
+            <b style="color: #38bdf8;">🚌 Bus Sensing Unit: ${bus.id}</b>
+            <div style="color: #94a3b8; margin-top: 4px;">${bus.route}</div>
+            <div style="font-size: 11px; margin-top: 4px;">Speed: <b style="color:#f8fafc;">${bus.speed}</b> · Edge AI Active</div>
           </div>
         `);
       busesGroupRef.current.addLayer(marker);
@@ -90,10 +90,10 @@ export default function MapView({ issues, onSelectIssue, selectedIssueId, active
       const isSelected = selectedIssueId === issue.issue_id;
       
       // Color by severity
-      let markerColor = '#3b82f6'; // low
+      let markerColor = '#38bdf8'; // low
       if (issue.severity === 'critical') markerColor = '#ef4444';
-      else if (issue.severity === 'high') markerColor = '#ff7a00';
-      else if (issue.severity === 'medium') markerColor = '#eab308';
+      else if (issue.severity === 'high') markerColor = '#f97316';
+      else if (issue.severity === 'medium') markerColor = '#facc15';
 
       // Status Badge Symbol
       const isVerified = issue.status === 'verified' || issue.status === 'work_order';
@@ -104,12 +104,12 @@ export default function MapView({ issues, onSelectIssue, selectedIssueId, active
           width: ${isSelected ? '36px' : '28px'};
           height: ${isSelected ? '36px' : '28px'};
           background: ${markerColor};
-          border: ${isSelected ? '3px solid #fff' : '2px solid rgba(255,255,255,0.85)'};
-          color: #fff;
+          border: ${isSelected ? '3px solid #f8fafc' : '2px solid rgba(255,255,255,0.85)'};
+          color: #080d14;
           font-weight: 800;
           font-size: ${isSelected ? '14px' : '11px'};
           transform: translate(-50%, -50%);
-          box-shadow: 0 0 ${isSelected ? '20px' : '10px'} ${markerColor}88;
+          box-shadow: 0 0 ${isSelected ? '18px' : '8px'} ${markerColor}99;
         ">
           ${symbol}
         </div>
@@ -132,7 +132,7 @@ export default function MapView({ issues, onSelectIssue, selectedIssueId, active
   }, [issues, activeFilter, selectedIssueId]);
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: 'calc(100vh - 200px)', minHeight: '520px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-subtle)' }}>
+    <div style={{ position: 'relative', width: '100%', height: 'calc(100vh - 210px)', minHeight: '520px', borderRadius: 'var(--radius-lg)', overflow: 'hidden', border: '1px solid var(--color-border-default)', boxShadow: 'var(--shadow-md)' }}>
       
       {/* Map Element */}
       <div id="gis-leaflet-map" ref={mapContainerRef} style={{ width: '100%', height: '100%' }} />
@@ -143,17 +143,17 @@ export default function MapView({ issues, onSelectIssue, selectedIssueId, active
         top: '16px',
         left: '16px',
         zIndex: 500,
-        background: 'rgba(14, 25, 35, 0.92)',
-        backdropFilter: 'blur(12px)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: '10px',
+        background: 'rgba(14, 23, 34, 0.92)',
+        backdropFilter: 'blur(16px)',
+        border: '1px solid var(--color-border-default)',
+        borderRadius: 'var(--radius-md)',
         padding: '6px 10px',
         display: 'flex',
         alignItems: 'center',
         gap: '6px',
-        boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+        boxShadow: 'var(--shadow-md)',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', paddingRight: '8px', borderRight: '1px solid var(--border-subtle)', color: 'var(--text-dim)', fontSize: '11px', fontWeight: '700' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', paddingRight: '8px', borderRight: '1px solid var(--color-border-default)', color: 'var(--color-text-muted)', fontSize: '11px', fontWeight: '700' }}>
           <Filter size={13} />
           <span>STATUS:</span>
         </div>
@@ -170,26 +170,27 @@ export default function MapView({ issues, onSelectIssue, selectedIssueId, active
             id={`filter-btn-${f.id}`}
             onClick={() => setActiveFilter(f.id)}
             style={{
-              background: activeFilter === f.id ? 'var(--brand-teal)' : 'rgba(255,255,255,0.05)',
-              color: activeFilter === f.id ? '#070d13' : 'var(--text-muted)',
+              background: activeFilter === f.id ? 'var(--color-accent)' : 'rgba(255,255,255,0.04)',
+              color: activeFilter === f.id ? '#080d14' : 'var(--color-text-secondary)',
               border: 'none',
-              padding: '4px 10px',
+              padding: '5px 11px',
               borderRadius: '6px',
               fontSize: '11px',
               fontWeight: '700',
               cursor: 'pointer',
-              transition: 'all 0.15s ease',
+              transition: 'all var(--transition-fast)',
               display: 'flex',
               alignItems: 'center',
-              gap: '4px',
+              gap: '6px',
             }}
           >
             <span>{f.label}</span>
             <span style={{
-              background: activeFilter === f.id ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.1)',
-              padding: '1px 5px',
-              borderRadius: '10px',
-              fontSize: '9px',
+              background: activeFilter === f.id ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.08)',
+              padding: '1px 6px',
+              borderRadius: '8px',
+              fontSize: '10px',
+              fontWeight: 800
             }}>
               {f.count}
             </span>
@@ -203,36 +204,36 @@ export default function MapView({ issues, onSelectIssue, selectedIssueId, active
         bottom: '16px',
         left: '16px',
         zIndex: 500,
-        background: 'rgba(14, 25, 35, 0.92)',
-        backdropFilter: 'blur(12px)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: '10px',
-        padding: '10px 14px',
+        background: 'rgba(14, 23, 34, 0.92)',
+        backdropFilter: 'blur(16px)',
+        border: '1px solid var(--color-border-default)',
+        borderRadius: 'var(--radius-md)',
+        padding: '10px 16px',
         fontSize: '11px',
         display: 'flex',
         flexDirection: 'column',
         gap: '6px',
-        boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+        boxShadow: 'var(--shadow-md)',
       }}>
-        <span style={{ fontWeight: '700', color: '#fff', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+        <span style={{ fontWeight: '700', color: 'var(--color-text-primary)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
           Severity Map Legend
         </span>
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ef4444', display: 'inline-block' }}></span>
-            <span>Critical</span>
+            <span style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#ef4444', display: 'inline-block' }}></span>
+            <span style={{ color: 'var(--color-text-secondary)' }}>Critical</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff7a00', display: 'inline-block' }}></span>
-            <span>High</span>
+            <span style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#f97316', display: 'inline-block' }}></span>
+            <span style={{ color: 'var(--color-text-secondary)' }}>High</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#eab308', display: 'inline-block' }}></span>
-            <span>Medium</span>
+            <span style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#facc15', display: 'inline-block' }}></span>
+            <span style={{ color: 'var(--color-text-secondary)' }}>Medium</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#3b82f6', display: 'inline-block' }}></span>
-            <span>Low</span>
+            <span style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#38bdf8', display: 'inline-block' }}></span>
+            <span style={{ color: 'var(--color-text-secondary)' }}>Low</span>
           </div>
         </div>
       </div>

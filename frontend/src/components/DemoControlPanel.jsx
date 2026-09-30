@@ -5,14 +5,13 @@ import {
   Wifi, 
   WifiOff, 
   CheckCircle, 
-  AlertTriangle, 
   BarChart2, 
   Bus, 
   Sparkles, 
   ChevronDown, 
   ChevronUp 
 } from 'lucide-react';
-import { simulatePass, resetDemo, triggerRedetectionCheck } from '../api';
+import { simulatePass, resetDemo } from '../api';
 
 export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -75,20 +74,21 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
       id="demo-control-panel"
       className="glass-panel"
       style={{
-        margin: '12px 24px 0 24px',
-        padding: '12px 18px',
-        border: '1px solid rgba(0, 210, 180, 0.4)',
-        background: 'linear-gradient(135deg, rgba(14, 25, 35, 0.95), rgba(7, 13, 19, 0.98))',
-        boxShadow: '0 8px 30px rgba(0,0,0,0.4)',
+        margin: '14px 28px 0 28px',
+        padding: '14px 20px',
+        background: 'var(--color-surface)',
+        border: '1px solid var(--color-border-default)',
+        borderRadius: 'var(--radius-lg)',
+        boxShadow: 'var(--shadow-sm)',
       }}
     >
       {/* Top Toggle Bar */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{
-            background: 'rgba(0, 210, 180, 0.15)',
-            color: 'var(--brand-teal)',
-            padding: '4px 8px',
+            background: 'rgba(56, 189, 248, 0.12)',
+            color: 'var(--color-accent)',
+            padding: '4px 10px',
             borderRadius: '6px',
             display: 'flex',
             alignItems: 'center',
@@ -97,10 +97,10 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
             fontWeight: '800',
             letterSpacing: '0.04em',
           }}>
-            <Sparkles size={14} />
-            <span>LOOP 7 SIMULATION CONTROLS</span>
+            <Sparkles size={13} />
+            <span>SIMULATION CONTROLS</span>
           </div>
-          <span style={{ fontSize: '12px', color: '#fff', fontWeight: '700' }}>
+          <span style={{ fontSize: '13px', color: 'var(--color-text-primary)', fontWeight: '700' }}>
             Jaipur Corridor Multi-Bus Scenario Replay
           </span>
           <span className="badge-simulated">DETERMINISTIC SEED: 42</span>
@@ -111,17 +111,18 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
             id="btn-bytes-modal"
             onClick={onOpenBytesModal}
             style={{
-              background: 'rgba(168, 85, 247, 0.15)',
-              color: '#c084fc',
-              border: '1px solid rgba(168, 85, 247, 0.4)',
-              padding: '5px 12px',
-              borderRadius: '6px',
+              background: 'rgba(56, 189, 248, 0.08)',
+              color: '#38bdf8',
+              border: '1px solid rgba(56, 189, 248, 0.25)',
+              padding: '6px 14px',
+              borderRadius: '8px',
               fontSize: '11px',
               fontWeight: '700',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
+              transition: 'all var(--transition-fast)'
             }}
           >
             <BarChart2 size={13} />
@@ -133,7 +134,7 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
             style={{
               background: 'none',
               border: 'none',
-              color: 'var(--text-muted)',
+              color: 'var(--color-text-muted)',
               cursor: 'pointer',
               padding: '4px',
             }}
@@ -145,9 +146,9 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
 
       {/* Expanded Control Buttons */}
       {isExpanded && (
-        <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <div style={{ marginTop: '14px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
           
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
             
             {/* Pass 1 */}
             <button
@@ -155,20 +156,21 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
               onClick={() => handlePass(1, 'Pass 1 (RJ14-01 Initial Detections)')}
               disabled={loading}
               style={{
-                background: 'rgba(255, 255, 255, 0.06)',
-                border: '1px solid var(--border-subtle)',
-                color: '#fff',
-                padding: '7px 12px',
-                borderRadius: '6px',
+                background: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid var(--color-border-default)',
+                color: 'var(--color-text-primary)',
+                padding: '8px 14px',
+                borderRadius: '8px',
                 fontSize: '11px',
                 fontWeight: '700',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
+                transition: 'all var(--transition-fast)'
               }}
             >
-              <Play size={12} style={{ color: '#eab308' }} />
+              <Play size={12} style={{ color: '#facc15' }} />
               <span>1. Bus 01 Pass (Candidate)</span>
             </button>
 
@@ -178,20 +180,21 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
               onClick={() => handlePass(2, 'Pass 2 (RJ14-07 Corroboration)')}
               disabled={loading}
               style={{
-                background: 'rgba(0, 210, 180, 0.12)',
-                border: '1px solid var(--brand-teal)',
-                color: 'var(--brand-teal)',
-                padding: '7px 12px',
-                borderRadius: '6px',
+                background: 'rgba(56, 189, 248, 0.12)',
+                border: '1px solid rgba(56, 189, 248, 0.35)',
+                color: '#38bdf8',
+                padding: '8px 14px',
+                borderRadius: '8px',
                 fontSize: '11px',
                 fontWeight: '700',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
+                transition: 'all var(--transition-fast)'
               }}
             >
-              <Play size={12} style={{ color: 'var(--brand-teal)' }} />
+              <Play size={12} style={{ color: '#38bdf8' }} />
               <span>2. Bus 02 Pass (Corroborate & Auto WO)</span>
             </button>
 
@@ -200,17 +203,18 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
               id="btn-toggle-offline"
               onClick={handleOfflineToggle}
               style={{
-                background: offlineActive ? 'rgba(239, 68, 68, 0.2)' : 'rgba(255, 255, 255, 0.06)',
-                border: `1px solid ${offlineActive ? '#ef4444' : 'var(--border-subtle)'}`,
-                color: offlineActive ? '#ef4444' : '#fff',
-                padding: '7px 12px',
-                borderRadius: '6px',
+                background: offlineActive ? 'rgba(239, 68, 68, 0.15)' : 'rgba(255, 255, 255, 0.04)',
+                border: `1px solid ${offlineActive ? '#ef4444' : 'var(--color-border-default)'}`,
+                color: offlineActive ? '#ef4444' : 'var(--color-text-primary)',
+                padding: '8px 14px',
+                borderRadius: '8px',
                 fontSize: '11px',
                 fontWeight: '700',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
+                transition: 'all var(--transition-fast)'
               }}
             >
               {offlineActive ? <WifiOff size={13} /> : <Wifi size={13} />}
@@ -223,17 +227,18 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
               onClick={() => handlePass(3, 'Pass 3 (RJ14-12 Re-detection)')}
               disabled={loading}
               style={{
-                background: 'rgba(16, 185, 129, 0.15)',
-                border: '1px solid #10b981',
+                background: 'rgba(16, 185, 129, 0.12)',
+                border: '1px solid rgba(16, 185, 129, 0.35)',
                 color: '#10b981',
-                padding: '7px 12px',
-                borderRadius: '6px',
+                padding: '8px 14px',
+                borderRadius: '8px',
                 fontSize: '11px',
                 fontWeight: '700',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
+                transition: 'all var(--transition-fast)'
               }}
             >
               <CheckCircle size={12} />
@@ -247,10 +252,10 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
               disabled={loading}
               style={{
                 background: 'transparent',
-                border: '1px solid var(--border-subtle)',
-                color: 'var(--text-muted)',
-                padding: '7px 12px',
-                borderRadius: '6px',
+                border: '1px solid var(--color-border-subtle)',
+                color: 'var(--color-text-muted)',
+                padding: '8px 14px',
+                borderRadius: '8px',
                 fontSize: '11px',
                 fontWeight: '600',
                 cursor: 'pointer',
@@ -258,6 +263,7 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
                 alignItems: 'center',
                 gap: '6px',
                 marginLeft: 'auto',
+                transition: 'all var(--transition-fast)'
               }}
             >
               <RotateCcw size={12} />
@@ -269,15 +275,16 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
           {/* Status Toast */}
           {statusMsg && (
             <div style={{
-              background: 'rgba(0,0,0,0.5)',
-              border: '1px solid rgba(0, 210, 180, 0.3)',
-              padding: '8px 12px',
-              borderRadius: '6px',
+              background: 'var(--color-surface-elevated)',
+              border: '1px solid rgba(56, 189, 248, 0.3)',
+              padding: '8px 14px',
+              borderRadius: '8px',
               fontSize: '11px',
-              color: '#00d2b4',
+              color: 'var(--color-accent)',
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
+              fontWeight: '600'
             }}>
               <Bus size={14} />
               <span>{statusMsg}</span>

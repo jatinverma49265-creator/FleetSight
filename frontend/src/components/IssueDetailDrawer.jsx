@@ -1,7 +1,7 @@
 import React from 'react';
-import { X, CheckCircle2, AlertTriangle, ShieldCheck, Bus, Camera, Clock, MapPin, Sparkles } from 'lucide-react';
+import { X, ShieldCheck, Bus, Camera, Clock, MapPin } from 'lucide-react';
 
-export default function IssueDetailDrawer({ issue, onClose, onPromoteToWorkOrder }) {
+export default function IssueDetailDrawer({ issue, onClose }) {
   if (!issue) return null;
 
   const isVerified = issue.status === 'verified' || issue.status === 'work_order';
@@ -13,14 +13,16 @@ export default function IssueDetailDrawer({ issue, onClose, onPromoteToWorkOrder
       className="glass-panel"
       style={{
         width: '380px',
-        maxHeight: 'calc(100vh - 200px)',
+        maxHeight: 'calc(100vh - 210px)',
         overflowY: 'auto',
-        padding: '20px',
+        padding: '22px',
         display: 'flex',
         flexDirection: 'column',
         gap: '16px',
-        border: '1px solid var(--border-subtle)',
-        boxShadow: '0 12px 40px rgba(0,0,0,0.6)',
+        background: 'var(--color-surface)',
+        border: '1px solid var(--color-border-default)',
+        borderRadius: 'var(--radius-lg)',
+        boxShadow: 'var(--shadow-lg)',
       }}
     >
       {/* Header */}
@@ -28,24 +30,24 @@ export default function IssueDetailDrawer({ issue, onClose, onPromoteToWorkOrder
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
             <span style={{
-              background: isVerified ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
-              color: isVerified ? '#10b981' : '#f59e0b',
-              border: `1px solid ${isVerified ? 'rgba(16, 185, 129, 0.4)' : 'rgba(245, 158, 11, 0.4)'}`,
+              background: isVerified ? 'rgba(16, 185, 129, 0.12)' : 'rgba(250, 204, 21, 0.12)',
+              color: isVerified ? '#10b981' : '#facc15',
+              border: `1px solid ${isVerified ? 'rgba(16, 185, 129, 0.35)' : 'rgba(250, 204, 21, 0.35)'}`,
               padding: '2px 8px',
               borderRadius: '4px',
               fontSize: '10px',
               fontWeight: '800',
               textTransform: 'uppercase',
-              letterSpacing: '0.06em',
+              letterSpacing: '0.05em',
             }}>
               {issue.status.replace('_', ' ')}
             </span>
             <span className="badge-simulated">SIMULATED</span>
           </div>
-          <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#fff' }}>
+          <h3 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--color-text-primary)', margin: 0 }}>
             {issue.detection_class.replace('_', ' ').toUpperCase()}
           </h3>
-          <p style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>
+          <p style={{ fontSize: '11px', color: 'var(--color-text-muted)', marginTop: '2px', margin: 0 }}>
             ID: <span style={{ fontFamily: 'var(--font-mono)' }}>{issue.issue_id}</span>
           </p>
         </div>
@@ -53,24 +55,28 @@ export default function IssueDetailDrawer({ issue, onClose, onPromoteToWorkOrder
           id="close-drawer-btn"
           onClick={onClose}
           style={{
-            background: 'rgba(255,255,255,0.05)',
-            border: 'none',
-            color: 'var(--text-muted)',
+            background: 'var(--color-surface-elevated)',
+            border: '1px solid var(--color-border-default)',
+            color: 'var(--color-text-secondary)',
             padding: '6px',
             borderRadius: '6px',
             cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all var(--transition-fast)'
           }}
         >
-          <X size={16} />
+          <X size={15} />
         </button>
       </div>
 
       {/* Blurred Privacy Evidence Frame */}
       <div style={{
-        borderRadius: '8px',
+        borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
-        border: '1px solid var(--border-subtle)',
-        background: '#09131c',
+        border: '1px solid var(--color-border-default)',
+        background: 'var(--color-surface-subtle)',
         position: 'relative',
       }}>
         {issue.evidence_uri ? (
@@ -82,16 +88,16 @@ export default function IssueDetailDrawer({ issue, onClose, onPromoteToWorkOrder
         ) : (
           <div style={{
             height: '160px',
-            background: 'linear-gradient(180deg, #182836 0%, #0d1720 100%)',
+            background: 'linear-gradient(180deg, #142130 0%, #0b121b 100%)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '8px',
-            color: 'var(--text-dim)',
+            color: 'var(--color-text-muted)',
           }}>
-            <Camera size={28} />
-            <span style={{ fontSize: '11px' }}>Edge Cropped Frame</span>
+            <Camera size={26} />
+            <span style={{ fontSize: '11px', fontWeight: 600 }}>Edge Cropped Sensor Frame</span>
           </div>
         )}
 
@@ -100,19 +106,19 @@ export default function IssueDetailDrawer({ issue, onClose, onPromoteToWorkOrder
           position: 'absolute',
           top: '8px',
           right: '8px',
-          background: 'rgba(7, 13, 19, 0.9)',
-          border: '1px solid rgba(0, 210, 180, 0.3)',
+          background: 'rgba(8, 13, 20, 0.92)',
+          border: '1px solid rgba(16, 185, 129, 0.4)',
           padding: '3px 8px',
           borderRadius: '4px',
           display: 'flex',
           alignItems: 'center',
           gap: '4px',
           fontSize: '9px',
-          color: '#00d2b4',
+          color: '#10b981',
           fontWeight: '700',
         }}>
           <ShieldCheck size={12} />
-          <span>FACES & PLATES BLURRED</span>
+          <span>DPDP ACT 2023 · BLURRED</span>
         </div>
 
         {/* Bounding Box Simulated Tag */}
@@ -120,12 +126,12 @@ export default function IssueDetailDrawer({ issue, onClose, onPromoteToWorkOrder
           position: 'absolute',
           bottom: '8px',
           left: '8px',
-          background: 'rgba(255, 122, 0, 0.9)',
-          color: '#fff',
+          background: 'var(--color-safety-orange)',
+          color: '#080d14',
           fontSize: '10px',
           fontWeight: '800',
-          padding: '2px 6px',
-          borderRadius: '3px',
+          padding: '2px 8px',
+          borderRadius: '4px',
         }}>
           {issue.detection_class} · {issue.severity.toUpperCase()}
         </div>
@@ -133,30 +139,30 @@ export default function IssueDetailDrawer({ issue, onClose, onPromoteToWorkOrder
 
       {/* Priority Score & Explainability Breakdown */}
       <div style={{
-        background: 'rgba(255,255,255,0.02)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: '8px',
-        padding: '14px',
+        background: 'var(--color-surface-elevated)',
+        border: '1px solid var(--color-border-default)',
+        borderRadius: 'var(--radius-md)',
+        padding: '16px',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
           <div>
-            <div style={{ fontSize: '10px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: '700' }}>
+            <div style={{ fontSize: '10px', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: '700' }}>
               Explainable Priority Score
             </div>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
-              <span style={{ fontSize: '32px', fontWeight: '800', color: 'var(--brand-teal)' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginTop: '2px' }}>
+              <span style={{ fontSize: '32px', fontWeight: '800', color: 'var(--color-accent)', fontVariantNumeric: 'tabular-nums' }}>
                 {issue.priority_score}
               </span>
-              <span style={{ fontSize: '12px', color: 'var(--text-dim)' }}>/ 100</span>
+              <span style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>/ 100</span>
             </div>
           </div>
           <div style={{
-            background: 'rgba(0, 210, 180, 0.1)',
-            border: '1px solid rgba(0, 210, 180, 0.3)',
+            background: 'rgba(56, 189, 248, 0.12)',
+            border: '1px solid rgba(56, 189, 248, 0.3)',
             borderRadius: '6px',
-            padding: '4px 8px',
+            padding: '4px 10px',
             fontSize: '11px',
-            color: 'var(--brand-teal)',
+            color: 'var(--color-accent)',
             fontWeight: '700',
           }}>
             {issue.observation_count >= 2 ? 'Corroborated' : 'Single Pass'}
@@ -165,44 +171,44 @@ export default function IssueDetailDrawer({ issue, onClose, onPromoteToWorkOrder
 
         {/* Explainability Breakdown Bars */}
         {breakdown && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '10px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '10px' }}>
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-text-secondary)' }}>
                 <span>Defect Severity ({breakdown.severity_level})</span>
-                <b style={{ color: '#fff' }}>+{breakdown.severity_weight} / 40</b>
+                <strong style={{ color: 'var(--color-text-primary)' }}>+{breakdown.severity_weight} / 40</strong>
               </div>
-              <div style={{ width: '100%', height: '4px', background: 'rgba(255,255,255,0.08)', borderRadius: '2px', overflow: 'hidden', marginTop: '2px' }}>
+              <div style={{ width: '100%', height: '5px', background: 'rgba(255,255,255,0.06)', borderRadius: '3px', overflow: 'hidden', marginTop: '3px' }}>
                 <div style={{ width: `${(breakdown.severity_weight / 40) * 100}%`, height: '100%', background: '#ef4444' }} />
               </div>
             </div>
 
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-text-secondary)' }}>
                 <span>Multi-Bus Recurrence ({issue.observation_count} passes)</span>
-                <b style={{ color: '#fff' }}>+{breakdown.recurrence_weight} / 30</b>
+                <strong style={{ color: 'var(--color-text-primary)' }}>+{breakdown.recurrence_weight} / 30</strong>
               </div>
-              <div style={{ width: '100%', height: '4px', background: 'rgba(255,255,255,0.08)', borderRadius: '2px', overflow: 'hidden', marginTop: '2px' }}>
-                <div style={{ width: `${(breakdown.recurrence_weight / 30) * 100}%`, height: '100%', background: '#00d2b4' }} />
+              <div style={{ width: '100%', height: '5px', background: 'rgba(255,255,255,0.06)', borderRadius: '3px', overflow: 'hidden', marginTop: '3px' }}>
+                <div style={{ width: `${(breakdown.recurrence_weight / 30) * 100}%`, height: '100%', background: '#38bdf8' }} />
               </div>
             </div>
 
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-text-secondary)' }}>
                 <span>Corridor Context ({breakdown.road_classification})</span>
-                <b style={{ color: '#fff' }}>+{breakdown.context_weight} / 20</b>
+                <strong style={{ color: 'var(--color-text-primary)' }}>+{breakdown.context_weight} / 20</strong>
               </div>
-              <div style={{ width: '100%', height: '4px', background: 'rgba(255,255,255,0.08)', borderRadius: '2px', overflow: 'hidden', marginTop: '2px' }}>
-                <div style={{ width: `${(breakdown.context_weight / 20) * 100}%`, height: '100%', background: '#3b82f6' }} />
+              <div style={{ width: '100%', height: '5px', background: 'rgba(255,255,255,0.06)', borderRadius: '3px', overflow: 'hidden', marginTop: '3px' }}>
+                <div style={{ width: `${(breakdown.context_weight / 20) * 100}%`, height: '100%', background: '#818cf8' }} />
               </div>
             </div>
 
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-text-secondary)' }}>
                 <span>Detector Confidence</span>
-                <b style={{ color: '#fff' }}>+{breakdown.confidence_weight} / 10</b>
+                <strong style={{ color: 'var(--color-text-primary)' }}>+{breakdown.confidence_weight} / 10</strong>
               </div>
-              <div style={{ width: '100%', height: '4px', background: 'rgba(255,255,255,0.08)', borderRadius: '2px', overflow: 'hidden', marginTop: '2px' }}>
-                <div style={{ width: `${(breakdown.confidence_weight / 10) * 100}%`, height: '100%', background: '#eab308' }} />
+              <div style={{ width: '100%', height: '5px', background: 'rgba(255,255,255,0.06)', borderRadius: '3px', overflow: 'hidden', marginTop: '3px' }}>
+                <div style={{ width: `${(breakdown.confidence_weight / 10) * 100}%`, height: '100%', background: '#facc15' }} />
               </div>
             </div>
           </div>
@@ -210,23 +216,23 @@ export default function IssueDetailDrawer({ issue, onClose, onPromoteToWorkOrder
       </div>
 
       {/* Observation Metadata List */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '11px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)' }}>
-          <MapPin size={14} style={{ color: 'var(--brand-teal)' }} />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-text-secondary)' }}>
+          <MapPin size={14} style={{ color: 'var(--color-accent)' }} />
           <span>{issue.road_segment}</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)' }}>
-          <Bus size={14} style={{ color: '#3b82f6' }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-text-secondary)' }}>
+          <Bus size={14} style={{ color: '#818cf8' }} />
           <span>
-            Buses: <b>{issue.bus_ids.join(', ') || 'N/A'}</b> ({issue.observation_count} total passes)
+            Buses: <strong style={{ color: 'var(--color-text-primary)' }}>{issue.bus_ids.join(', ') || 'N/A'}</strong> ({issue.observation_count} total passes)
           </span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)' }}>
-          <Camera size={14} style={{ color: '#a855f7' }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-text-secondary)' }}>
+          <Camera size={14} style={{ color: '#c084fc' }} />
           <span>Cameras: {issue.camera_ids.join(', ') || 'N/A'}</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)' }}>
-          <Clock size={14} style={{ color: '#eab308' }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-text-secondary)' }}>
+          <Clock size={14} style={{ color: '#facc15' }} />
           <span>Last detected: {new Date(issue.last_detected_at).toLocaleTimeString()}</span>
         </div>
       </div>
