@@ -16,8 +16,6 @@ import {
   ArrowUpRight, 
   ShieldCheck, 
   MapPin, 
-  Zap,
-  Activity,
   HardDrive
 } from 'lucide-react';
 
@@ -25,30 +23,30 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
   const timeSeries = trafficData?.time_series || [];
 
   return (
-    <div style={{ padding: '24px 32px 48px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div className="animate-fade-in" style={{ padding: '24px 32px 48px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
       
       {/* 1. Context Welcome Banner */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        background: 'var(--color-surface-card)',
+        background: '#FFFFFF',
         border: '1px solid var(--color-border-default)',
         borderRadius: 'var(--radius-lg)',
-        padding: '20px 24px',
+        padding: '22px 28px',
         boxShadow: 'var(--shadow-sm)'
       }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--c-slate-blue)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               SMART MOBILITY INTELLIGENCE
             </span>
             <span className="badge-simulated">JAIPUR PILOT</span>
           </div>
-          <h1 style={{ fontSize: '22px', fontWeight: '800', color: 'var(--color-text-primary)', margin: 0 }}>
+          <h1 style={{ fontSize: '22px', fontWeight: '800', color: 'var(--c-rich-navy)', margin: 0 }}>
             Urban Road Health & Autonomous Fleet Sensing
           </h1>
-          <p style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginTop: '4px', margin: 0 }}>
+          <p style={{ fontSize: '12.5px', color: 'var(--c-slate-blue)', marginTop: '4px', margin: 0, fontWeight: 500 }}>
             3 Active Public Buses Surveying Arterial Routes (MI Road · Tonk Road · JLN Marg)
           </p>
         </div>
@@ -57,18 +55,18 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
           <button
             onClick={() => onNavigateTab('map')}
             style={{
-              background: 'linear-gradient(135deg, #38bdf8, #0284c7)',
-              color: '#080d14',
+              background: 'linear-gradient(135deg, var(--c-deep-navy), var(--c-rich-navy))',
+              color: '#FFFFFF',
               border: 'none',
-              padding: '10px 18px',
+              padding: '11px 20px',
               borderRadius: 'var(--radius-md)',
-              fontSize: '12px',
+              fontSize: '12.5px',
               fontWeight: '700',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
-              boxShadow: '0 4px 12px rgba(56, 189, 248, 0.35)',
+              boxShadow: '0 4px 14px rgba(13, 27, 42, 0.2)',
               transition: 'all var(--transition-fast)'
             }}
           >
@@ -83,81 +81,81 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
         
         {/* Active Buses */}
-        <div id="kpi-buses" className="glass-panel glass-panel-hover" style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '12px' }}>
+        <div id="kpi-buses" className="glass-panel glass-panel-hover" style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '12px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--c-slate-blue)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Active Buses
             </span>
-            <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(56, 189, 248, 0.1)', color: 'var(--color-accent)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Bus size={15} />
+            <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--color-surface-subtle)', color: 'var(--c-deep-navy)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--color-border-subtle)' }}>
+              <Bus size={16} />
             </div>
           </div>
           <div>
-            <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--color-text-primary)', fontVariantNumeric: 'tabular-nums' }}>
+            <div style={{ fontSize: '30px', fontWeight: '800', color: 'var(--c-rich-navy)', fontVariantNumeric: 'tabular-nums' }}>
               {kpis?.buses_active ?? 3}
             </div>
-            <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <span style={{ color: '#10b981', fontWeight: '700' }}>+100% online</span>
+            <div style={{ fontSize: '11px', color: 'var(--c-slate-blue)', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <span style={{ color: '#15803d', fontWeight: '700' }}>+100% online</span>
               <span>· RJ14 Fleet Units</span>
             </div>
           </div>
         </div>
 
         {/* Surveyed Corridor */}
-        <div className="glass-panel glass-panel-hover" style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '12px' }}>
+        <div className="glass-panel glass-panel-hover" style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '12px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--c-slate-blue)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Corridor Surveyed
             </span>
-            <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(129, 140, 248, 0.1)', color: '#818cf8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Route size={15} />
+            <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--color-surface-subtle)', color: 'var(--c-slate-blue)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--color-border-subtle)' }}>
+              <Route size={16} />
             </div>
           </div>
           <div>
-            <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--color-text-primary)', fontVariantNumeric: 'tabular-nums' }}>
-              {kpis?.km_surveyed ?? 48.6} <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-text-muted)' }}>km</span>
+            <div style={{ fontSize: '30px', fontWeight: '800', color: 'var(--c-rich-navy)', fontVariantNumeric: 'tabular-nums' }}>
+              {kpis?.km_surveyed ?? 48.6} <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--c-slate-blue)' }}>km</span>
             </div>
-            <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', marginTop: '2px' }}>
+            <div style={{ fontSize: '11px', color: 'var(--c-slate-blue)', marginTop: '2px' }}>
               4 survey passes completed today
             </div>
           </div>
         </div>
 
         {/* Verified Defects */}
-        <div className="glass-panel glass-panel-hover" style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '12px' }}>
+        <div className="glass-panel glass-panel-hover" style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '12px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--c-slate-blue)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Defects Detected
             </span>
-            <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(249, 115, 22, 0.1)', color: 'var(--color-safety-orange)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <AlertOctagon size={15} />
+            <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(234, 88, 12, 0.1)', color: 'var(--color-safety-orange)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(234, 88, 12, 0.25)' }}>
+              <AlertOctagon size={16} />
             </div>
           </div>
           <div>
-            <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--color-text-primary)', fontVariantNumeric: 'tabular-nums' }}>
+            <div style={{ fontSize: '30px', fontWeight: '800', color: 'var(--c-rich-navy)', fontVariantNumeric: 'tabular-nums' }}>
               {kpis?.defects_detected ?? 0}
             </div>
-            <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', marginTop: '2px' }}>
+            <div style={{ fontSize: '11px', color: 'var(--c-slate-blue)', marginTop: '2px' }}>
               <b style={{ color: 'var(--color-safety-orange)' }}>{kpis?.defects_corroborated ?? 0} corroborated</b> (2+ buses)
             </div>
           </div>
         </div>
 
         {/* Bandwidth Saved */}
-        <div className="glass-panel glass-panel-hover" style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '12px' }}>
+        <div className="glass-panel glass-panel-hover" style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '12px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--c-slate-blue)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Bandwidth Saved
             </span>
-            <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(56, 189, 248, 0.1)', color: 'var(--color-accent)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <HardDrive size={15} />
+            <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--color-surface-subtle)', color: 'var(--c-deep-navy)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--color-border-subtle)' }}>
+              <HardDrive size={16} />
             </div>
           </div>
           <div>
-            <div style={{ fontSize: '28px', fontWeight: '800', color: 'var(--color-text-primary)', fontVariantNumeric: 'tabular-nums' }}>
+            <div style={{ fontSize: '30px', fontWeight: '800', color: 'var(--c-rich-navy)', fontVariantNumeric: 'tabular-nums' }}>
               {kpis?.bandwidth_saved_pct ?? 100}%
             </div>
-            <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', marginTop: '2px' }}>
+            <div style={{ fontSize: '11px', color: 'var(--c-slate-blue)', marginTop: '2px' }}>
               1.6 KB JSON vs 2.08 GB video
             </div>
           </div>
@@ -172,24 +170,26 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
         <div className="glass-panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
-              <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--color-text-primary)', margin: 0 }}>
+              <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--c-rich-navy)', margin: 0 }}>
                 Corridor Traffic & Surface Defect Trends
               </h3>
-              <p style={{ fontSize: '11px', color: 'var(--color-text-muted)', margin: '2px 0 0 0' }}>
+              <p style={{ fontSize: '11.5px', color: 'var(--c-slate-blue)', margin: '2px 0 0 0' }}>
                 15-Minute Volume Across Surveyed Arterial Roads
               </p>
             </div>
             <button
               onClick={() => onNavigateTab('traffic')}
               style={{
-                background: 'var(--color-surface-elevated)',
-                border: '1px solid var(--color-border-default)',
-                color: 'var(--color-text-secondary)',
-                padding: '5px 12px',
+                background: '#FFFFFF',
+                border: '1px solid var(--c-soft-steel)',
+                color: 'var(--c-deep-navy)',
+                padding: '6px 14px',
                 borderRadius: '6px',
-                fontSize: '11px',
-                fontWeight: 600,
-                cursor: 'pointer'
+                fontSize: '11.5px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                boxShadow: 'var(--shadow-sm)',
+                transition: 'all var(--transition-fast)'
               }}
             >
               Full Analytics →
@@ -201,28 +201,29 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
               <AreaChart data={timeSeries} margin={{ top: 10, right: 15, left: -15, bottom: 0 }}>
                 <defs>
                   <linearGradient id="tonkGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#38bdf8" stopOpacity={0.4}/>
-                    <stop offset="95%" stopColor="#38bdf8" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#1B263B" stopOpacity={0.35}/>
+                    <stop offset="95%" stopColor="#1B263B" stopOpacity={0.02}/>
                   </linearGradient>
                   <linearGradient id="miGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#f97316" stopOpacity={0.4}/>
-                    <stop offset="95%" stopColor="#f97316" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#415A77" stopOpacity={0.30}/>
+                    <stop offset="95%" stopColor="#415A77" stopOpacity={0.02}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                <XAxis dataKey="time" stroke="#5E5953" fontSize={11} tickLine={false} />
-                <YAxis stroke="#5E5953" fontSize={11} tickLine={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(119, 141, 169, 0.25)" vertical={false} />
+                <XAxis dataKey="time" stroke="#415A77" fontSize={11} tickLine={false} />
+                <YAxis stroke="#415A77" fontSize={11} tickLine={false} />
                 <Tooltip
                   contentStyle={{ 
-                    background: '#191613', 
-                    borderColor: '#2A241E', 
+                    background: '#FFFFFF', 
+                    borderColor: '#778DA9', 
                     borderRadius: '8px', 
                     fontSize: '11px',
-                    color: '#FEFEFE'
+                    color: '#0D1B2A',
+                    boxShadow: '0 4px 16px rgba(13, 27, 42, 0.12)'
                   }}
                 />
-                <Area type="monotone" dataKey="tonk_road" name="Tonk Road" stroke="#38bdf8" strokeWidth={2} fillOpacity={1} fill="url(#tonkGrad)" />
-                <Area type="monotone" dataKey="mi_road" name="MI Road" stroke="#f97316" strokeWidth={2} fillOpacity={1} fill="url(#miGrad)" />
+                <Area type="monotone" dataKey="tonk_road" name="Tonk Road" stroke="#1B263B" strokeWidth={2.5} fillOpacity={1} fill="url(#tonkGrad)" />
+                <Area type="monotone" dataKey="mi_road" name="MI Road" stroke="#415A77" strokeWidth={2.5} fillOpacity={1} fill="url(#miGrad)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -231,10 +232,10 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
         {/* Active Bus Fleet Panel */}
         <div className="glass-panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--color-text-primary)', margin: 0 }}>
+            <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--c-rich-navy)', margin: 0 }}>
               Live Bus Sensor Units
             </h3>
-            <span style={{ fontSize: '11px', color: '#10b981', fontWeight: 700 }}>● 3 Active</span>
+            <span style={{ fontSize: '11px', color: '#15803d', fontWeight: 700 }}>● 3 Active</span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -243,8 +244,8 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
               { id: 'RJ14-07', route: 'Route 12 (Tonk Road)', speed: '32 km/h', pass: 'Pass 2 Corroborated', status: 'Active Sensing' },
               { id: 'RJ14-12', route: 'Route 3 (Civil Lines)', speed: '19 km/h', pass: 'Re-detection Ready', status: 'Active Sensing' },
             ].map((bus) => (
-              <div key={bus.id} style={{
-                background: 'var(--color-surface-elevated)',
+              <div key={bus.id} className="glass-panel-hover" style={{
+                background: '#FFFFFF',
                 border: '1px solid var(--color-border-default)',
                 padding: '12px 14px',
                 borderRadius: 'var(--radius-md)',
@@ -258,19 +259,19 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
                     height: '32px',
                     borderRadius: '8px',
                     background: 'var(--color-surface-subtle)',
-                    border: '1px solid var(--color-border-default)',
+                    border: '1px solid var(--color-border-subtle)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: 'var(--color-accent)'
+                    color: 'var(--c-deep-navy)'
                   }}>
                     <Bus size={16} />
                   </div>
                   <div>
-                    <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--color-text-primary)' }}>
+                    <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--c-rich-navy)' }}>
                       Bus {bus.id}
                     </div>
-                    <div style={{ fontSize: '11px', color: 'var(--color-text-muted)' }}>
+                    <div style={{ fontSize: '11px', color: 'var(--c-slate-blue)' }}>
                       {bus.route} · {bus.speed}
                     </div>
                   </div>
@@ -279,9 +280,9 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
                 <span style={{
                   fontSize: '10px',
                   fontWeight: '700',
-                  color: '#10b981',
-                  background: 'rgba(16, 185, 129, 0.1)',
-                  border: '1px solid rgba(16, 185, 129, 0.25)',
+                  color: '#15803d',
+                  background: 'rgba(21, 128, 61, 0.1)',
+                  border: '1px solid rgba(21, 128, 61, 0.25)',
                   padding: '3px 8px',
                   borderRadius: '4px',
                 }}>
@@ -300,7 +301,7 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
         {/* Top Work Orders */}
         <div className="glass-panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--color-text-primary)', margin: 0 }}>
+            <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--c-rich-navy)', margin: 0 }}>
               Top Priority Work Orders
             </h3>
             <button
@@ -308,8 +309,8 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: 'var(--color-accent)',
-                fontSize: '11px',
+                color: 'var(--c-deep-navy)',
+                fontSize: '11.5px',
                 fontWeight: 700,
                 cursor: 'pointer'
               }}
@@ -320,8 +321,8 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {workOrders.slice(0, 3).map((wo) => (
-              <div key={wo.work_order_id} style={{
-                background: 'var(--color-surface-elevated)',
+              <div key={wo.work_order_id} className="glass-panel-hover" style={{
+                background: '#FFFFFF',
                 border: '1px solid var(--color-border-default)',
                 padding: '12px 14px',
                 borderRadius: 'var(--radius-md)',
@@ -335,21 +336,21 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
                     height: '32px',
                     borderRadius: '6px',
                     background: 'var(--color-surface-subtle)',
-                    border: '1px solid var(--color-border-default)',
+                    border: '1px solid var(--color-border-subtle)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontSize: '13px',
                     fontWeight: '800',
-                    color: 'var(--color-accent)'
+                    color: 'var(--c-deep-navy)'
                   }}>
                     {wo.priority_score}
                   </div>
                   <div>
-                    <div style={{ fontSize: '12.5px', fontWeight: '700', color: 'var(--color-text-primary)' }}>
+                    <div style={{ fontSize: '12.5px', fontWeight: '700', color: 'var(--c-rich-navy)' }}>
                       {wo.title}
                     </div>
-                    <div style={{ fontSize: '11px', color: 'var(--color-text-muted)' }}>
+                    <div style={{ fontSize: '11px', color: 'var(--c-slate-blue)' }}>
                       {wo.road_segment}
                     </div>
                   </div>
@@ -359,7 +360,7 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
                   fontSize: '9px',
                   fontWeight: '700',
                   color: 'var(--color-safety-orange)',
-                  background: 'rgba(249, 115, 22, 0.1)',
+                  background: 'rgba(234, 88, 12, 0.1)',
                   padding: '2px 6px',
                   borderRadius: '4px',
                   textTransform: 'uppercase'
@@ -375,12 +376,12 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
         <div className="glass-panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '14px' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-              <ShieldCheck size={18} style={{ color: '#10b981' }} />
-              <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--color-text-primary)', margin: 0 }}>
+              <ShieldCheck size={18} style={{ color: '#15803d' }} />
+              <h3 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--c-rich-navy)', margin: 0 }}>
                 DPDP Act 2023 Privacy Safeguards
               </h3>
             </div>
-            <p style={{ fontSize: '12px', color: 'var(--color-text-secondary)', lineHeight: 1.5, margin: 0 }}>
+            <p style={{ fontSize: '12px', color: 'var(--c-slate-blue)', lineHeight: 1.5, margin: 0 }}>
               All edge cameras execute Gaussian face and license plate de-identification in volatile RAM. 
               Zero facial recognition, zero ANPR, and compact JSON telemetry only.
             </p>
@@ -390,14 +391,15 @@ export default function DashboardOverview({ kpis, trafficData, issues, workOrder
             <button
               onClick={() => onNavigateTab('portal')}
               style={{
-                background: 'var(--color-surface-elevated)',
-                border: '1px solid var(--color-border-default)',
-                color: 'var(--color-text-primary)',
-                padding: '8px 14px',
+                background: '#FFFFFF',
+                border: '1px solid var(--c-soft-steel)',
+                color: 'var(--c-deep-navy)',
+                padding: '8px 16px',
                 borderRadius: 'var(--radius-md)',
-                fontSize: '11px',
-                fontWeight: 600,
-                cursor: 'pointer'
+                fontSize: '11.5px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                boxShadow: 'var(--shadow-sm)'
               }}
             >
               Read DPDP Charter →

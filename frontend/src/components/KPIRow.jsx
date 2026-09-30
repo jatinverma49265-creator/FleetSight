@@ -11,8 +11,8 @@ export default function KPIRow({ kpis }) {
       value: kpis.buses_active ?? 3,
       unit: 'Units (RJ14 fleet)',
       icon: Bus,
-      color: '#38bdf8',
-      bg: 'rgba(56, 189, 248, 0.1)',
+      color: 'var(--c-deep-navy)',
+      bg: 'var(--color-surface-subtle)',
     },
     {
       id: 'kpi-km',
@@ -20,8 +20,8 @@ export default function KPIRow({ kpis }) {
       value: `${kpis.km_surveyed ?? 48.6}`,
       unit: 'km surveyed today',
       icon: Route,
-      color: '#818cf8',
-      bg: 'rgba(129, 140, 248, 0.1)',
+      color: 'var(--c-slate-blue)',
+      bg: 'var(--color-surface-subtle)',
     },
     {
       id: 'kpi-defects',
@@ -30,7 +30,7 @@ export default function KPIRow({ kpis }) {
       unit: `${kpis.defects_corroborated ?? 0} corroborated (2+ buses)`,
       icon: AlertOctagon,
       color: 'var(--color-safety-orange)',
-      bg: 'rgba(249, 115, 22, 0.1)',
+      bg: 'rgba(234, 88, 12, 0.1)',
     },
     {
       id: 'kpi-work-orders',
@@ -38,8 +38,8 @@ export default function KPIRow({ kpis }) {
       value: kpis.work_orders_created ?? 0,
       unit: `${kpis.work_orders_closed ?? 0} verified repaired`,
       icon: CheckCircle2,
-      color: '#10b981',
-      bg: 'rgba(16, 185, 129, 0.1)',
+      color: '#15803d',
+      bg: 'rgba(21, 128, 61, 0.1)',
     },
     {
       id: 'kpi-latency',
@@ -47,8 +47,8 @@ export default function KPIRow({ kpis }) {
       value: `${kpis.median_latency_seconds ?? 0.32}s`,
       unit: 'Target: <= 15s',
       icon: Zap,
-      color: '#facc15',
-      bg: 'rgba(250, 204, 21, 0.1)',
+      color: '#b45309',
+      bg: 'rgba(180, 83, 9, 0.1)',
     },
     {
       id: 'kpi-bandwidth',
@@ -56,8 +56,8 @@ export default function KPIRow({ kpis }) {
       value: `${kpis.bandwidth_saved_pct ?? 100}%`,
       unit: 'vs 720p raw video',
       icon: HardDrive,
-      color: '#38bdf8',
-      bg: 'rgba(56, 189, 248, 0.1)',
+      color: 'var(--c-deep-navy)',
+      bg: 'var(--color-surface-subtle)',
     },
   ];
 
@@ -76,38 +76,40 @@ export default function KPIRow({ kpis }) {
             id={item.id}
             className="glass-panel glass-panel-hover"
             style={{
-              padding: '16px 18px',
+              padding: '18px 20px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
               gap: '10px',
               position: 'relative',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              background: '#FFFFFF'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: '11px', color: 'var(--color-text-muted)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <span style={{ fontSize: '11px', color: 'var(--c-slate-blue)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 {item.label}
               </span>
               <div style={{
-                width: '30px',
-                height: '30px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '8px',
                 background: item.bg,
+                border: '1px solid var(--color-border-subtle)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: item.color,
               }}>
-                <Icon size={15} />
+                <Icon size={16} />
               </div>
             </div>
 
             <div>
               <div style={{
-                fontSize: '24px',
+                fontSize: '28px',
                 fontWeight: '800',
-                color: 'var(--color-text-primary)',
+                color: 'var(--c-rich-navy)',
                 fontFamily: 'var(--font-heading)',
                 lineHeight: 1.1,
                 letterSpacing: '-0.02em',
@@ -117,7 +119,7 @@ export default function KPIRow({ kpis }) {
               </div>
               <div style={{
                 fontSize: '11px',
-                color: 'var(--color-text-secondary)',
+                color: 'var(--c-slate-blue)',
                 marginTop: '4px',
                 fontWeight: '500'
               }}>

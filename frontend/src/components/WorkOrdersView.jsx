@@ -44,7 +44,7 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
   };
 
   return (
-    <div style={{
+    <div className="animate-fade-in" style={{
       display: 'grid',
       gridTemplateColumns: '1.2fr 1.8fr',
       gap: '20px',
@@ -56,10 +56,10 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
       <div className="glass-panel" style={{ padding: '22px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div>
-            <h2 style={{ fontSize: '17px', fontWeight: '800', color: 'var(--color-text-primary)', margin: 0 }}>
+            <h2 style={{ fontSize: '17px', fontWeight: '800', color: 'var(--c-rich-navy)', margin: 0 }}>
               Ranked Work-Order Queue
             </h2>
-            <p style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginTop: '2px', margin: 0 }}>
+            <p style={{ fontSize: '12px', color: 'var(--c-slate-blue)', marginTop: '2px', margin: 0 }}>
               Prioritised candidates generated via 2+ bus corroboration
             </p>
           </div>
@@ -70,9 +70,9 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', overflowY: 'auto', maxHeight: 'calc(100vh - 300px)' }}>
           {workOrders.map((wo) => {
             const isSelected = selectedWO?.work_order_id === wo.work_order_id;
-            let statusColor = '#facc15';
-            if (wo.status === 'assigned' || wo.status === 'in_progress') statusColor = '#38bdf8';
-            else if (wo.status === 'completed' || wo.status === 'closed') statusColor = '#10b981';
+            let statusColor = '#b45309';
+            if (wo.status === 'assigned' || wo.status === 'in_progress') statusColor = '#1d4ed8';
+            else if (wo.status === 'completed' || wo.status === 'closed') statusColor = '#15803d';
 
             return (
               <div
@@ -83,8 +83,9 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
                 style={{
                   padding: '14px 16px',
                   borderRadius: 'var(--radius-md)',
-                  background: isSelected ? 'rgba(56, 189, 248, 0.1)' : 'var(--color-surface-elevated)',
-                  border: isSelected ? '1px solid var(--color-accent)' : '1px solid var(--color-border-default)',
+                  background: isSelected ? 'rgba(27, 38, 59, 0.08)' : '#FFFFFF',
+                  border: isSelected ? '1.5px solid var(--c-deep-navy)' : '1px solid var(--color-border-default)',
+                  boxShadow: isSelected ? '0 2px 8px rgba(13, 27, 42, 0.1)' : 'var(--shadow-sm)',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -94,30 +95,30 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <div style={{
-                    width: '40px',
-                    height: '40px',
+                    width: '42px',
+                    height: '42px',
                     borderRadius: '8px',
                     background: 'var(--color-surface-subtle)',
-                    border: '1px solid var(--color-border-default)',
+                    border: '1px solid var(--color-border-subtle)',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                    <span style={{ fontSize: '15px', fontWeight: '800', color: 'var(--color-accent)', fontVariantNumeric: 'tabular-nums' }}>
+                    <span style={{ fontSize: '15px', fontWeight: '800', color: 'var(--c-deep-navy)', fontVariantNumeric: 'tabular-nums' }}>
                       {wo.priority_score}
                     </span>
-                    <span style={{ fontSize: '7px', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>
+                    <span style={{ fontSize: '7.5px', color: 'var(--c-slate-blue)', textTransform: 'uppercase', fontWeight: 800 }}>
                       SCORE
                     </span>
                   </div>
 
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <strong style={{ fontSize: '13px', color: 'var(--color-text-primary)' }}>{wo.title}</strong>
+                      <strong style={{ fontSize: '13px', color: 'var(--c-rich-navy)' }}>{wo.title}</strong>
                     </div>
-                    <div style={{ fontSize: '11px', color: 'var(--color-text-secondary)', marginTop: '2px' }}>
-                      {wo.road_segment} · <b style={{ color: 'var(--color-text-primary)' }}>{wo.observation_count} bus passes</b>
+                    <div style={{ fontSize: '11px', color: 'var(--c-slate-blue)', marginTop: '2px' }}>
+                      {wo.road_segment} · <b style={{ color: 'var(--c-deep-navy)' }}>{wo.observation_count} bus passes</b>
                     </div>
                   </div>
                 </div>
@@ -151,13 +152,13 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: 'var(--color-accent)', fontWeight: '700' }}>
+                <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: 'var(--c-deep-navy)', fontWeight: '700' }}>
                   {selectedWO.work_order_id}
                 </span>
                 <span style={{
-                  background: 'rgba(16, 185, 129, 0.12)',
-                  color: '#10b981',
-                  border: '1px solid rgba(16, 185, 129, 0.35)',
+                  background: 'rgba(21, 128, 61, 0.12)',
+                  color: '#15803d',
+                  border: '1px solid rgba(21, 128, 61, 0.35)',
                   padding: '2px 8px',
                   borderRadius: '4px',
                   fontSize: '10px',
@@ -166,26 +167,26 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
                   CORROBORATED BY {selectedWO.corroborating_buses.length || 2} BUSES
                 </span>
               </div>
-              <h1 style={{ fontSize: '20px', fontWeight: '800', color: 'var(--color-text-primary)', margin: '4px 0 0 0' }}>
+              <h1 style={{ fontSize: '20px', fontWeight: '800', color: 'var(--c-rich-navy)', margin: '4px 0 0 0' }}>
                 {selectedWO.title}
               </h1>
-              <p style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginTop: '4px', margin: 0 }}>
+              <p style={{ fontSize: '12px', color: 'var(--c-slate-blue)', marginTop: '4px', margin: 0 }}>
                 {selectedWO.description}
               </p>
             </div>
 
             <div style={{
-              background: 'var(--color-surface-elevated)',
+              background: 'var(--color-surface-subtle)',
               border: '1px solid var(--color-border-default)',
               padding: '10px 18px',
               borderRadius: 'var(--radius-md)',
               textAlign: 'center',
               boxShadow: 'var(--shadow-sm)'
             }}>
-              <div style={{ fontSize: '26px', fontWeight: '800', color: 'var(--color-accent)', fontVariantNumeric: 'tabular-nums' }}>
+              <div style={{ fontSize: '26px', fontWeight: '800', color: 'var(--c-deep-navy)', fontVariantNumeric: 'tabular-nums' }}>
                 {selectedWO.priority_score}
               </div>
-              <div style={{ fontSize: '9px', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: '700', letterSpacing: '0.04em' }}>
+              <div style={{ fontSize: '9.5px', color: 'var(--c-slate-blue)', textTransform: 'uppercase', fontWeight: '800', letterSpacing: '0.04em' }}>
                 Priority Score
               </div>
             </div>
@@ -193,9 +194,9 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
 
           {actionSuccess && (
             <div style={{
-              background: 'rgba(16, 185, 129, 0.12)',
-              border: '1px solid #10b981',
-              color: '#10b981',
+              background: 'rgba(21, 128, 61, 0.12)',
+              border: '1px solid #15803d',
+              color: '#15803d',
               padding: '10px 16px',
               borderRadius: '8px',
               fontSize: '12px',
@@ -211,41 +212,41 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
 
           {/* Explainability Breakdown Card */}
           <div style={{
-            background: 'var(--color-surface-elevated)',
+            background: 'var(--color-surface-subtle)',
             border: '1px solid var(--color-border-default)',
             borderRadius: 'var(--radius-md)',
             padding: '18px',
           }}>
-            <h3 style={{ fontSize: '12px', fontWeight: '700', color: 'var(--color-text-primary)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <h3 style={{ fontSize: '12px', fontWeight: '800', color: 'var(--c-rich-navy)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Explainability Factor Breakdown (Transparent Scoring)
             </h3>
-            <p style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginBottom: '14px', lineHeight: 1.5 }}>
+            <p style={{ fontSize: '12px', color: 'var(--c-slate-blue)', marginBottom: '14px', lineHeight: 1.5 }}>
               {selectedWO.severity_breakdown.explanation}
             </p>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', textAlign: 'center' }}>
-              <div style={{ background: 'var(--color-surface-subtle)', padding: '12px 10px', borderRadius: '8px', border: '1px solid var(--color-border-subtle)' }}>
-                <span style={{ fontSize: '10px', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Base Severity</span>
-                <strong style={{ display: 'block', fontSize: '16px', color: '#ef4444', marginTop: '2px' }}>+{selectedWO.severity_breakdown.severity_weight}</strong>
+              <div style={{ background: '#FFFFFF', padding: '12px 10px', borderRadius: '8px', border: '1px solid var(--color-border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
+                <span style={{ fontSize: '10px', color: 'var(--c-slate-blue)', textTransform: 'uppercase', fontWeight: 700 }}>Base Severity</span>
+                <strong style={{ display: 'block', fontSize: '16px', color: '#b91c1c', marginTop: '2px' }}>+{selectedWO.severity_breakdown.severity_weight}</strong>
               </div>
-              <div style={{ background: 'var(--color-surface-subtle)', padding: '12px 10px', borderRadius: '8px', border: '1px solid var(--color-border-subtle)' }}>
-                <span style={{ fontSize: '10px', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Recurrence</span>
-                <strong style={{ display: 'block', fontSize: '16px', color: 'var(--color-accent)', marginTop: '2px' }}>+{selectedWO.severity_breakdown.recurrence_weight}</strong>
+              <div style={{ background: '#FFFFFF', padding: '12px 10px', borderRadius: '8px', border: '1px solid var(--color-border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
+                <span style={{ fontSize: '10px', color: 'var(--c-slate-blue)', textTransform: 'uppercase', fontWeight: 700 }}>Recurrence</span>
+                <strong style={{ display: 'block', fontSize: '16px', color: 'var(--c-deep-navy)', marginTop: '2px' }}>+{selectedWO.severity_breakdown.recurrence_weight}</strong>
               </div>
-              <div style={{ background: 'var(--color-surface-subtle)', padding: '12px 10px', borderRadius: '8px', border: '1px solid var(--color-border-subtle)' }}>
-                <span style={{ fontSize: '10px', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Corridor Context</span>
-                <strong style={{ display: 'block', fontSize: '16px', color: '#818cf8', marginTop: '2px' }}>+{selectedWO.severity_breakdown.context_weight}</strong>
+              <div style={{ background: '#FFFFFF', padding: '12px 10px', borderRadius: '8px', border: '1px solid var(--color-border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
+                <span style={{ fontSize: '10px', color: 'var(--c-slate-blue)', textTransform: 'uppercase', fontWeight: 700 }}>Corridor Context</span>
+                <strong style={{ display: 'block', fontSize: '16px', color: 'var(--c-slate-blue)', marginTop: '2px' }}>+{selectedWO.severity_breakdown.context_weight}</strong>
               </div>
-              <div style={{ background: 'var(--color-surface-subtle)', padding: '12px 10px', borderRadius: '8px', border: '1px solid var(--color-border-subtle)' }}>
-                <span style={{ fontSize: '10px', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Confidence</span>
-                <strong style={{ display: 'block', fontSize: '16px', color: '#facc15', marginTop: '2px' }}>+{selectedWO.severity_breakdown.confidence_weight}</strong>
+              <div style={{ background: '#FFFFFF', padding: '12px 10px', borderRadius: '8px', border: '1px solid var(--color-border-subtle)', boxShadow: 'var(--shadow-sm)' }}>
+                <span style={{ fontSize: '10px', color: 'var(--c-slate-blue)', textTransform: 'uppercase', fontWeight: 700 }}>Confidence</span>
+                <strong style={{ display: 'block', fontSize: '16px', color: '#b45309', marginTop: '2px' }}>+{selectedWO.severity_breakdown.confidence_weight}</strong>
               </div>
             </div>
           </div>
 
           {/* Engineer Actions (Protected by RBAC) */}
           <div style={{
-            background: 'var(--color-surface-elevated)',
+            background: 'var(--color-surface-subtle)',
             border: '1px solid var(--color-border-default)',
             borderRadius: 'var(--radius-md)',
             padding: '18px',
@@ -255,13 +256,13 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
           }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <UserCheck size={18} style={{ color: 'var(--color-accent)' }} />
-                <span style={{ fontSize: '13px', fontWeight: '800', color: 'var(--color-text-primary)' }}>
+                <UserCheck size={18} style={{ color: 'var(--c-deep-navy)' }} />
+                <span style={{ fontSize: '13px', fontWeight: '800', color: 'var(--c-rich-navy)' }}>
                   Engineer Operational Workflow (RBAC Protected)
                 </span>
               </div>
-              <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)' }}>
-                Current User: <b style={{ color: 'var(--color-accent)' }}>{currentRole.toUpperCase()}</b>
+              <span style={{ fontSize: '11px', color: 'var(--c-slate-blue)' }}>
+                Current User: <b style={{ color: 'var(--c-deep-navy)' }}>{currentRole.toUpperCase()}</b>
               </span>
             </div>
 
@@ -271,10 +272,10 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
                 onClick={() => handleAction('assigned', 'PWD Maintenance Crew - Division 1')}
                 disabled={actionLoading}
                 style={{
-                  background: 'linear-gradient(135deg, #38bdf8, #0284c7)',
-                  color: '#080d14',
+                  background: 'linear-gradient(135deg, var(--c-deep-navy), var(--c-rich-navy))',
+                  color: '#FFFFFF',
                   border: 'none',
-                  padding: '10px 20px',
+                  padding: '11px 22px',
                   borderRadius: '8px',
                   fontWeight: '800',
                   fontSize: '12px',
@@ -282,7 +283,7 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
-                  boxShadow: '0 4px 12px rgba(56, 189, 248, 0.3)',
+                  boxShadow: '0 4px 12px rgba(13, 27, 42, 0.2)',
                   transition: 'all var(--transition-fast)'
                 }}
               >
@@ -295,9 +296,9 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
                 onClick={() => handleAction('completed')}
                 disabled={actionLoading}
                 style={{
-                  background: 'rgba(16, 185, 129, 0.12)',
-                  color: '#10b981',
-                  border: '1px solid rgba(16, 185, 129, 0.35)',
+                  background: '#FFFFFF',
+                  color: '#15803d',
+                  border: '1.5px solid rgba(21, 128, 61, 0.35)',
                   padding: '10px 20px',
                   borderRadius: '8px',
                   fontWeight: '800',
@@ -306,6 +307,7 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
+                  boxShadow: 'var(--shadow-sm)',
                   transition: 'all var(--transition-fast)'
                 }}
               >
@@ -316,12 +318,13 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
 
             {(currentRole === 'viewer' || currentRole === 'police') && (
               <div style={{
-                fontSize: '11px',
-                color: '#facc15',
-                background: 'rgba(250, 204, 21, 0.1)',
+                fontSize: '11.5px',
+                color: '#b45309',
+                background: 'rgba(180, 83, 9, 0.1)',
                 padding: '8px 12px',
                 borderRadius: '6px',
-                border: '1px solid rgba(250, 204, 21, 0.3)',
+                border: '1px solid rgba(180, 83, 9, 0.3)',
+                fontWeight: 500
               }}>
                 Notice: You are in <b>{currentRole.toUpperCase()}</b> mode. Clicking action buttons will enforce RBAC access restrictions.
               </div>
@@ -330,13 +333,13 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
 
           {/* Audit History for this Work Order */}
           <div>
-            <h4 style={{ fontSize: '12px', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.04em' }}>
+            <h4 style={{ fontSize: '12px', fontWeight: '700', color: 'var(--c-slate-blue)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.04em' }}>
               Work Order Audit Trail
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {selectedWO.history.map((h, i) => (
                 <div key={i} style={{
-                  background: 'var(--color-surface-elevated)',
+                  background: '#FFFFFF',
                   border: '1px solid var(--color-border-subtle)',
                   borderRadius: '8px',
                   padding: '10px 14px',
@@ -344,13 +347,14 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
+                  boxShadow: 'var(--shadow-sm)'
                 }}>
                   <div>
-                    <strong style={{ color: 'var(--color-text-primary)' }}>{h.action}</strong>
-                    <span style={{ color: 'var(--color-text-secondary)', marginLeft: '8px', fontSize: '11px' }}>by {h.username} ({h.role})</span>
-                    {h.comment && <div style={{ color: 'var(--color-text-muted)', marginTop: '2px', fontSize: '11px' }}>"{h.comment}"</div>}
+                    <strong style={{ color: 'var(--c-rich-navy)' }}>{h.action}</strong>
+                    <span style={{ color: 'var(--c-slate-blue)', marginLeft: '8px', fontSize: '11px' }}>by {h.username} ({h.role})</span>
+                    {h.comment && <div style={{ color: 'var(--c-slate-blue)', marginTop: '2px', fontSize: '11px' }}>"{h.comment}"</div>}
                   </div>
-                  <span style={{ color: 'var(--color-text-muted)', fontSize: '11px', fontVariantNumeric: 'tabular-nums' }}>
+                  <span style={{ color: 'var(--c-slate-blue)', fontSize: '11px', fontVariantNumeric: 'tabular-nums', fontWeight: 600 }}>
                     {new Date(h.timestamp).toLocaleTimeString()}
                   </span>
                 </div>
@@ -360,7 +364,7 @@ export default function WorkOrdersView({ workOrders, currentRole, onRefresh, onT
 
         </div>
       ) : (
-        <div className="glass-panel" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-muted)' }}>
+        <div className="glass-panel" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--c-slate-blue)', fontWeight: 500 }}>
           Select a work order from the queue to view details.
         </div>
       )}

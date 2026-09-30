@@ -28,22 +28,23 @@ export default function AuditView({ currentRole }) {
   // If role is denied (Engineer or Viewer)
   if (error || currentRole === 'engineer' || currentRole === 'viewer') {
     return (
-      <div style={{ margin: '40px 28px' }}>
+      <div className="animate-fade-in" style={{ margin: '40px 28px' }}>
         <div className="glass-panel" style={{
           padding: '48px 32px',
           textAlign: 'center',
           maxWidth: '580px',
           margin: '0 auto',
-          border: '1px solid rgba(239, 68, 68, 0.3)',
-          background: 'var(--color-surface)',
-          borderRadius: 'var(--radius-xl)'
+          border: '1px solid rgba(185, 28, 28, 0.3)',
+          background: '#FFFFFF',
+          borderRadius: 'var(--radius-xl)',
+          boxShadow: 'var(--shadow-md)'
         }}>
           <div style={{
             width: '56px',
             height: '56px',
             borderRadius: '50%',
-            background: 'rgba(239, 68, 68, 0.12)',
-            color: '#ef4444',
+            background: 'rgba(185, 28, 28, 0.1)',
+            color: '#b91c1c',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -51,10 +52,10 @@ export default function AuditView({ currentRole }) {
           }}>
             <Lock size={26} />
           </div>
-          <h2 style={{ fontSize: '19px', fontWeight: '800', color: 'var(--color-text-primary)', marginBottom: '8px' }}>
+          <h2 style={{ fontSize: '19px', fontWeight: '800', color: 'var(--c-rich-navy)', marginBottom: '8px' }}>
             RBAC Access Denied: 403 Forbidden
           </h2>
-          <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)', lineHeight: '1.6', margin: '0 0 20px 0' }}>
+          <p style={{ fontSize: '13px', color: 'var(--c-slate-blue)', lineHeight: '1.6', margin: '0 0 20px 0' }}>
             The immutable audit log is strictly restricted to <b>Municipal Admins</b> and <b>Traffic Police Law Enforcement</b> officers under the DPDP Act 2023 compliance guidelines.
           </p>
           <div style={{
@@ -63,10 +64,10 @@ export default function AuditView({ currentRole }) {
             padding: '12px 16px',
             borderRadius: '8px',
             fontSize: '12px',
-            color: 'var(--color-text-muted)',
+            color: 'var(--c-slate-blue)',
             lineHeight: 1.5
           }}>
-            Active Role: <b style={{ color: '#ef4444' }}>{currentRole.toUpperCase()}</b> · Switch role to <b>City Admin</b> or <b>Traffic Police</b> in the top navbar to inspect audit records.
+            Active Role: <b style={{ color: '#b91c1c' }}>{currentRole.toUpperCase()}</b> · Switch role to <b>City Admin</b> or <b>Traffic Police</b> in the sidebar to inspect audit records.
           </div>
         </div>
       </div>
@@ -74,92 +75,115 @@ export default function AuditView({ currentRole }) {
   }
 
   return (
-    <div style={{ margin: '20px 28px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <div className="animate-fade-in" style={{ margin: '20px 28px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
       
       {/* Header */}
       <div className="glass-panel" style={{ padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{
-              width: '32px',
-              height: '32px',
+              width: '36px',
+              height: '36px',
               borderRadius: '8px',
-              background: 'rgba(56, 189, 248, 0.12)',
+              background: 'var(--color-surface-subtle)',
+              border: '1px solid var(--color-border-subtle)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'var(--color-accent)'
+              color: 'var(--c-deep-navy)'
             }}>
               <ShieldCheck size={18} />
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <h2 style={{ fontSize: '17px', fontWeight: '800', color: 'var(--color-text-primary)', margin: 0 }}>
+                <h2 style={{ fontSize: '17px', fontWeight: '800', color: 'var(--c-rich-navy)', margin: 0 }}>
                   Immutable Compliance & Operational Audit Trail
                 </h2>
                 <span className="badge-simulated">SIMULATED</span>
               </div>
-              <p style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginTop: '2px', margin: 0 }}>
-                DPDP Act 2023 Purpose Limitation & Security Audit Log · Access restricted to Admin & Police
+              <p style={{ fontSize: '12px', color: 'var(--c-slate-blue)', marginTop: '2px', margin: 0, fontWeight: 500 }}>
+                DPDP Act 2023 § 8(4) compliant append-only ledger · Authorized for <b>{currentRole.toUpperCase()}</b>
               </p>
             </div>
           </div>
         </div>
 
-        <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>
-          Authorized Session: <b style={{ color: 'var(--color-accent)' }}>{currentRole.toUpperCase()}</b>
+        <div style={{
+          background: 'var(--color-surface-subtle)',
+          border: '1px solid var(--color-border-default)',
+          padding: '8px 16px',
+          borderRadius: 'var(--radius-md)',
+          textAlign: 'right',
+          boxShadow: 'var(--shadow-sm)'
+        }}>
+          <div style={{ fontSize: '16px', fontWeight: '800', color: 'var(--c-deep-navy)' }}>
+            {logs.length} Events
+          </div>
+          <div style={{ fontSize: '10px', color: 'var(--c-slate-blue)', textTransform: 'uppercase', fontWeight: 800 }}>
+            Appended to Ledger
+          </div>
         </div>
       </div>
 
-      {/* Table */}
-      <div className="glass-panel" style={{ padding: '18px 22px', overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
-          <thead>
-            <tr style={{ borderBottom: '1px solid var(--color-border-default)', textAlign: 'left', color: 'var(--color-text-muted)' }}>
-              <th style={{ padding: '12px 10px', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TIMESTAMP</th>
-              <th style={{ padding: '12px 10px', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>ACTION</th>
-              <th style={{ padding: '12px 10px', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>USER / ACTOR</th>
-              <th style={{ padding: '12px 10px', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>ROLE</th>
-              <th style={{ padding: '12px 10px', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>RESOURCE</th>
-              <th style={{ padding: '12px 10px', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>DETAILS</th>
-            </tr>
-          </thead>
-          <tbody>
-            {logs.map((entry) => (
-              <tr key={entry.audit_id} style={{ borderBottom: '1px solid var(--color-border-subtle)', transition: 'background var(--transition-fast)' }}>
-                <td style={{ padding: '12px 10px', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}>
-                  {new Date(entry.timestamp).toLocaleTimeString()}
-                </td>
-                <td style={{ padding: '12px 10px', fontWeight: '700', color: 'var(--color-accent)' }}>
-                  {entry.action}
-                </td>
-                <td style={{ padding: '12px 10px', color: 'var(--color-text-primary)' }}>
-                  {entry.username}
-                </td>
-                <td style={{ padding: '12px 10px' }}>
-                  <span style={{
-                    background: 'var(--color-surface-elevated)',
-                    border: '1px solid var(--color-border-default)',
-                    padding: '3px 7px',
-                    borderRadius: '4px',
-                    fontSize: '10px',
-                    textTransform: 'uppercase',
-                    color: 'var(--color-text-secondary)',
-                    fontWeight: 600
-                  }}>
-                    {entry.role}
-                  </span>
-                </td>
-                <td style={{ padding: '12px 10px', fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}>
-                  {entry.resource_type}:{entry.resource_id}
-                </td>
-                <td style={{ padding: '12px 10px', color: 'var(--color-text-secondary)' }}>
-                  {entry.details}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* Log Feed */}
+      <div className="glass-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: 'calc(100vh - 270px)', overflowY: 'auto' }}>
+        {logs.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '40px', color: 'var(--c-slate-blue)' }}>
+            No audit records captured yet. Events and state transitions will be logged automatically.
+          </div>
+        ) : (
+          logs.map((log) => (
+            <div
+              key={log.log_id}
+              className="glass-panel-hover"
+              style={{
+                padding: '12px 16px',
+                borderRadius: '8px',
+                background: '#FFFFFF',
+                border: '1px solid var(--color-border-default)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '16px',
+                boxShadow: 'var(--shadow-sm)'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                <span style={{
+                  background: 'rgba(27, 38, 59, 0.08)',
+                  color: 'var(--c-deep-navy)',
+                  border: '1px solid rgba(27, 38, 59, 0.2)',
+                  padding: '3px 8px',
+                  borderRadius: '4px',
+                  fontSize: '10px',
+                  fontWeight: '800',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em'
+                }}>
+                  {log.action}
+                </span>
+
+                <div>
+                  <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--c-rich-navy)' }}>
+                    {log.description}
+                  </div>
+                  <div style={{ fontSize: '11px', color: 'var(--c-slate-blue)', marginTop: '2px' }}>
+                    Actor: <b style={{ color: 'var(--c-deep-navy)' }}>{log.actor_user_id}</b> ({log.actor_role}) · Target: {log.target_type} ({log.target_id || 'Global'})
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ textAlign: 'right' }}>
+                <span style={{ fontSize: '11px', color: 'var(--c-slate-blue)', fontVariantNumeric: 'tabular-nums', fontWeight: 600 }}>
+                  {new Date(log.timestamp).toLocaleTimeString()}
+                </span>
+                <div style={{ fontSize: '9px', color: 'var(--c-soft-steel)', textTransform: 'uppercase' }}>
+                  {new Date(log.timestamp).toLocaleDateString()}
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
 
     </div>

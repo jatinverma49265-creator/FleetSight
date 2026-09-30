@@ -1,89 +1,106 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* Reference Palette & Dark Theme System */
-  /* Reference Colors: #0F0D0B #FEFEFE #54311D #6F452E #0C2E5F #3D5165 #A2A197 #85624F */
-  --color-bg: #0F0D0B;
-  --color-surface: #181512;
-  --color-surface-elevated: #221E19;
-  --color-surface-subtle: #14110E;
-  --color-surface-card: #191613;
+  /* =========================================================================
+     FleetSight Bright Clean Light Theme System
+     Core 5-Color Reference Palette:
+       #0D1B2A  Rich Dark Navy (Text, High-contrast headers, Dominant brand)
+       #1B263B  Deep Navy Blue (Primary actions, Nav active, Surface accents)
+       #415A77  Muted Slate Blue (Secondary text, Structural borders, Icons)
+       #778DA9  Soft Steel Blue (Subtle borders, Muted captions, Grid lines)
+       #E0E1DD  Primary Light Background (Canvas, Warm Light Platinum)
+     ========================================================================= */
 
-  /* Aliases */
-  --bg-dark: var(--color-bg);
+  /* Palette Exact Tokens */
+  --c-rich-navy: #0D1B2A;
+  --c-deep-navy: #1B263B;
+  --c-slate-blue: #415A77;
+  --c-soft-steel: #778DA9;
+  --c-light-bg: #E0E1DD;
+
+  /* Surfaces & Canvas */
+  --color-bg: var(--c-light-bg);
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FFFFFF;
+  --color-surface-subtle: #F2F3EF;
+  --color-surface-card: #FFFFFF;
+  --color-surface-navy: var(--c-deep-navy);
+
+  /* Semantic Theme Aliases */
   --bg-primary: var(--color-bg);
   --bg-card: var(--color-surface);
-  --bg-card-hover: var(--color-surface-elevated);
+  --bg-card-hover: #F8F9F7;
   --bg-elevated: var(--color-surface-elevated);
 
-  /* Subtle Warm Slate Borders */
-  --color-border-subtle: rgba(255, 255, 255, 0.05);
-  --color-border-default: #2A241E;
-  --color-border-hover: #3E352C;
-  --color-focus-ring: #38bdf8;
-  --border-subtle: var(--color-border-default);
-  --border-active: #38bdf8;
+  /* Structural Borders */
+  --color-border-subtle: rgba(119, 141, 169, 0.25);
+  --color-border-default: rgba(65, 90, 119, 0.28);
+  --color-border-hover: var(--c-slate-blue);
+  --color-border-strong: var(--c-deep-navy);
+  --color-focus-ring: var(--c-deep-navy);
+  --border-subtle: var(--color-border-subtle);
+  --border-active: var(--c-deep-navy);
 
-  /* Text & Typography (Warm Bone & Sand) */
-  --color-text-primary: #FEFEFE;
-  --color-text-secondary: #D4CFCA;
-  --color-text-muted: #8A857D;
-  --color-text-dim: #5E5953;
+  /* High-Contrast Accessible Typography */
+  --color-text-primary: var(--c-rich-navy);
+  --color-text-secondary: var(--c-deep-navy);
+  --color-text-muted: var(--c-slate-blue);
+  --color-text-dim: var(--c-soft-steel);
+  --color-text-inverse: #FFFFFF;
   --text-main: var(--color-text-primary);
-  --text-muted: var(--color-text-secondary);
-  --text-dim: var(--color-text-muted);
+  --text-muted: var(--color-text-muted);
+  --text-dim: var(--color-text-dim);
 
-  /* Brand Accents from Reference */
-  --color-accent: #38bdf8;
-  --color-accent-blue: #0C2E5F;
-  --color-accent-slate: #3D5165;
-  --color-accent-brown: #54311D;
-  --color-accent-terracotta: #6F452E;
-  --color-accent-warm: #85624F;
-  --color-accent-soft: rgba(56, 189, 248, 0.12);
-  --color-brand-teal: #00d2b4;
-  --brand-teal: var(--color-brand-teal);
+  /* Primary Brand & Accents */
+  --color-primary: var(--c-deep-navy);
+  --color-primary-dark: var(--c-rich-navy);
+  --color-primary-light: var(--c-slate-blue);
+  --color-accent: var(--c-deep-navy);
+  --color-accent-blue: var(--c-deep-navy);
+  --color-accent-slate: var(--c-slate-blue);
+  --color-accent-soft: rgba(65, 90, 119, 0.12);
+  --color-accent-light: var(--c-soft-steel);
+  --brand-teal: #0d9488;
 
-  /* Restrained Road Safety Accent */
-  --color-safety-orange: #f97316;
+  /* Road Safety & Semantic Indicators */
+  --color-safety-orange: #ea580c;
   --brand-orange: var(--color-safety-orange);
+  --color-success: #15803d;
+  --color-warning: #b45309;
+  --color-danger: #b91c1c;
+  --color-info: #1d4ed8;
 
-  /* Semantic Status Colors */
-  --color-success: #10b981;
-  --color-warning: #facc15;
-  --color-danger: #ef4444;
-  --color-info: #60a5fa;
+  --sev-critical: #b91c1c;
+  --sev-high: #ea580c;
+  --sev-medium: #b45309;
+  --sev-low: #1d4ed8;
 
-  --sev-critical: #ef4444;
-  --sev-high: #f97316;
-  --sev-medium: #facc15;
-  --sev-low: #38bdf8;
-
-  --status-verified: #10b981;
-  --status-candidate: #facc15;
-  --status-wo: #f97316;
-  --status-repaired: #06b6d4;
+  --status-verified: #15803d;
+  --status-candidate: #b45309;
+  --status-wo: #ea580c;
+  --status-repaired: #0284c7;
 
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-heading: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* Spacing & Radii (Editorial & Spacious) */
+  /* Radii */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
   --radius-xl: 22px;
   --radius-full: 9999px;
 
-  /* Elevation Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 16px 36px -6px rgba(0, 0, 0, 0.6);
+  /* Clean Light Theme Shadows */
+  --shadow-sm: 0 1px 3px rgba(13, 27, 42, 0.06), 0 1px 2px rgba(13, 27, 42, 0.04);
+  --shadow-md: 0 4px 14px -2px rgba(13, 27, 42, 0.08), 0 2px 6px -1px rgba(13, 27, 42, 0.04);
+  --shadow-lg: 0 12px 28px -4px rgba(13, 27, 42, 0.12), 0 4px 10px -2px rgba(13, 27, 42, 0.06);
 
-  /* Transitions */
+  /* Transitions & Animation Timings */
   --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
   --transition-normal: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 350ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -107,7 +124,7 @@ h1, h2, h3, h4, h5, h6, strong, b {
   color: var(--color-text-primary);
 }
 
-/* Custom minimal scrollbars */
+/* Custom Minimal Scrollbars for Light Canvas */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -116,11 +133,11 @@ h1, h2, h3, h4, h5, h6, strong, b {
   background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border-default);
+  background: var(--c-soft-steel);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-border-hover);
+  background: var(--c-slate-blue);
 }
 
 /* Application Shell Layout */
@@ -131,7 +148,7 @@ h1, h2, h3, h4, h5, h6, strong, b {
 }
 
 .sidebar-container {
-  width: 250px;
+  width: 256px;
   background-color: var(--color-surface);
   border-right: 1px solid var(--color-border-default);
   display: flex;
@@ -142,6 +159,7 @@ h1, h2, h3, h4, h5, h6, strong, b {
   height: 100vh;
   z-index: 100;
   padding: 24px 16px;
+  box-shadow: 2px 0 16px rgba(13, 27, 42, 0.03);
 }
 
 .main-wrapper {
@@ -150,13 +168,14 @@ h1, h2, h3, h4, h5, h6, strong, b {
   flex-direction: column;
   min-width: 0;
   background-color: var(--color-bg);
+  animation: fadeInSlide 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .topbar-container {
   height: 68px;
-  background-color: rgba(15, 13, 11, 0.85);
+  background-color: rgba(224, 225, 221, 0.92);
   backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-default);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -166,18 +185,22 @@ h1, h2, h3, h4, h5, h6, strong, b {
   z-index: 90;
 }
 
-/* Clean Reference Cards */
+/* Luminous Crisp Cards */
 .glass-panel {
-  background: var(--color-surface-card);
+  background: var(--color-surface);
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
 }
 
+.glass-panel-hover {
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
 .glass-panel-hover:hover {
-  background: var(--color-surface-elevated);
-  border-color: var(--color-border-hover);
+  background: var(--color-surface);
+  border-color: var(--c-slate-blue);
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }
@@ -192,7 +215,7 @@ h1, h2, h3, h4, h5, h6, strong, b {
   border-radius: var(--radius-md);
   background: transparent;
   border: 1px solid transparent;
-  color: var(--color-text-secondary);
+  color: var(--c-slate-blue);
   font-weight: 500;
   font-size: 13.5px;
   cursor: pointer;
@@ -201,41 +224,47 @@ h1, h2, h3, h4, h5, h6, strong, b {
 }
 
 .sidebar-nav-btn:hover {
-  background: var(--color-surface-elevated);
-  color: var(--color-text-primary);
-  border-color: var(--color-border-default);
+  background: rgba(65, 90, 119, 0.08);
+  color: var(--c-rich-navy);
+  border-color: rgba(119, 141, 169, 0.25);
+  transform: translateX(2px);
 }
 
 .sidebar-nav-btn.active {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--color-text-primary);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--c-deep-navy);
+  color: #FFFFFF;
+  border-color: var(--c-rich-navy);
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 10px rgba(13, 27, 42, 0.16);
 }
 
-/* Leaflet Map overrides for Dark Theme */
+.sidebar-nav-btn.active svg {
+  color: #FFFFFF !important;
+}
+
+/* Leaflet Map overrides for Light Theme */
 .leaflet-container {
-  background: #0F0D0B !important;
+  background: var(--c-light-bg) !important;
   font-family: var(--font-sans) !important;
   width: 100%;
   height: 100%;
   border-radius: var(--radius-lg);
 }
 
+/* Clean, crisp tiles without dark inversion */
 .leaflet-tile {
-  filter: brightness(0.6) invert(1) contrast(3) hue-rotate(205deg) saturate(0.2) brightness(0.75);
+  filter: contrast(1.05) brightness(1.02) saturate(0.95);
 }
 
 .leaflet-popup-content-wrapper {
-  background: var(--color-surface) !important;
-  color: var(--color-text-primary) !important;
-  border: 1px solid var(--color-border-hover) !important;
+  background: #FFFFFF !important;
+  color: var(--c-rich-navy) !important;
+  border: 1px solid var(--c-soft-steel) !important;
   border-radius: var(--radius-md) !important;
   box-shadow: var(--shadow-lg) !important;
 }
 .leaflet-popup-tip {
-  background: var(--color-surface) !important;
+  background: #FFFFFF !important;
 }
 
 /* Map marker pulse */
@@ -244,35 +273,40 @@ h1, h2, h3, h4, h5, h6, strong, b {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  box-shadow: 0 0 14px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 10px rgba(13, 27, 42, 0.25);
   cursor: pointer;
-  transition: transform var(--transition-fast);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 .pulsing-marker:hover {
-  transform: scale(1.2);
+  transform: translate(-50%, -50%) scale(1.22);
   z-index: 1000 !important;
+  box-shadow: 0 4px 16px rgba(13, 27, 42, 0.35);
 }
 
 .bus-marker {
-  background: var(--color-surface-elevated);
-  border: 1px solid var(--color-accent);
-  color: #fff;
+  background: #FFFFFF;
+  border: 2px solid var(--c-deep-navy);
+  color: var(--c-rich-navy);
   border-radius: 8px;
-  padding: 3px 8px;
+  padding: 4px 10px;
   font-size: 11px;
   font-weight: 700;
   display: flex;
   align-items: center;
-  gap: 5px;
-  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
+  gap: 6px;
+  box-shadow: 0 4px 14px rgba(13, 27, 42, 0.14);
   white-space: nowrap;
+  transition: transform var(--transition-fast);
+}
+.bus-marker:hover {
+  transform: translate(-50%, -50%) scale(1.08);
 }
 
 /* Animated simulated badge */
 .badge-simulated {
-  background: rgba(250, 204, 21, 0.1);
-  border: 1px solid rgba(250, 204, 21, 0.3);
-  color: #facc15;
+  background: rgba(180, 83, 9, 0.1);
+  border: 1px solid rgba(180, 83, 9, 0.3);
+  color: #b45309;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -288,20 +322,44 @@ h1, h2, h3, h4, h5, h6, strong, b {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #facc15;
+  background: #b45309;
   animation: pulse-dot 2s infinite;
 }
 
 @keyframes pulse-dot {
   0% { transform: scale(0.9); opacity: 0.5; }
-  50% { transform: scale(1.25); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 1; }
   100% { transform: scale(0.9); opacity: 0.5; }
+}
+
+/* Premium Animations */
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInSlide var(--transition-normal);
 }
 
 /* Accessible Focus States */
 button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible {
   outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
+}
+
+/* Interactive Button Hover Micro-animation */
+button:not(:disabled) {
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+button:not(:disabled):active {
+  transform: scale(0.98);
 }
 
 /* Reduced motion preference */

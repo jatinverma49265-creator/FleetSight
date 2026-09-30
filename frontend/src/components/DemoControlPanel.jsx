@@ -72,11 +72,11 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
   return (
     <div
       id="demo-control-panel"
-      className="glass-panel"
+      className="glass-panel animate-fade-in"
       style={{
         margin: '14px 28px 0 28px',
         padding: '14px 20px',
-        background: 'var(--color-surface)',
+        background: '#FFFFFF',
         border: '1px solid var(--color-border-default)',
         borderRadius: 'var(--radius-lg)',
         boxShadow: 'var(--shadow-sm)',
@@ -86,8 +86,9 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{
-            background: 'rgba(56, 189, 248, 0.12)',
-            color: 'var(--color-accent)',
+            background: 'var(--color-surface-subtle)',
+            color: 'var(--c-deep-navy)',
+            border: '1px solid var(--color-border-subtle)',
             padding: '4px 10px',
             borderRadius: '6px',
             display: 'flex',
@@ -100,7 +101,7 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
             <Sparkles size={13} />
             <span>SIMULATION CONTROLS</span>
           </div>
-          <span style={{ fontSize: '13px', color: 'var(--color-text-primary)', fontWeight: '700' }}>
+          <span style={{ fontSize: '13px', color: 'var(--c-rich-navy)', fontWeight: '700' }}>
             Jaipur Corridor Multi-Bus Scenario Replay
           </span>
           <span className="badge-simulated">DETERMINISTIC SEED: 42</span>
@@ -111,9 +112,9 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
             id="btn-bytes-modal"
             onClick={onOpenBytesModal}
             style={{
-              background: 'rgba(56, 189, 248, 0.08)',
-              color: '#38bdf8',
-              border: '1px solid rgba(56, 189, 248, 0.25)',
+              background: '#FFFFFF',
+              color: 'var(--c-deep-navy)',
+              border: '1px solid var(--c-soft-steel)',
               padding: '6px 14px',
               borderRadius: '8px',
               fontSize: '11px',
@@ -122,6 +123,7 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
+              boxShadow: 'var(--shadow-sm)',
               transition: 'all var(--transition-fast)'
             }}
           >
@@ -134,7 +136,7 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
             style={{
               background: 'none',
               border: 'none',
-              color: 'var(--color-text-muted)',
+              color: 'var(--c-slate-blue)',
               cursor: 'pointer',
               padding: '4px',
             }}
@@ -156,9 +158,9 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
               onClick={() => handlePass(1, 'Pass 1 (RJ14-01 Initial Detections)')}
               disabled={loading}
               style={{
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid var(--color-border-default)',
-                color: 'var(--color-text-primary)',
+                background: '#FFFFFF',
+                border: '1px solid var(--c-soft-steel)',
+                color: 'var(--c-rich-navy)',
                 padding: '8px 14px',
                 borderRadius: '8px',
                 fontSize: '11px',
@@ -167,10 +169,11 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
+                boxShadow: 'var(--shadow-sm)',
                 transition: 'all var(--transition-fast)'
               }}
             >
-              <Play size={12} style={{ color: '#facc15' }} />
+              <Play size={12} style={{ color: '#b45309' }} />
               <span>1. Bus 01 Pass (Candidate)</span>
             </button>
 
@@ -180,9 +183,9 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
               onClick={() => handlePass(2, 'Pass 2 (RJ14-07 Corroboration)')}
               disabled={loading}
               style={{
-                background: 'rgba(56, 189, 248, 0.12)',
-                border: '1px solid rgba(56, 189, 248, 0.35)',
-                color: '#38bdf8',
+                background: 'rgba(27, 38, 59, 0.08)',
+                border: '1.5px solid var(--c-deep-navy)',
+                color: 'var(--c-deep-navy)',
                 padding: '8px 14px',
                 borderRadius: '8px',
                 fontSize: '11px',
@@ -191,10 +194,11 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
+                boxShadow: '0 2px 6px rgba(13, 27, 42, 0.1)',
                 transition: 'all var(--transition-fast)'
               }}
             >
-              <Play size={12} style={{ color: '#38bdf8' }} />
+              <Play size={12} style={{ color: 'var(--c-deep-navy)' }} />
               <span>2. Bus 02 Pass (Corroborate & Auto WO)</span>
             </button>
 
@@ -203,9 +207,9 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
               id="btn-toggle-offline"
               onClick={handleOfflineToggle}
               style={{
-                background: offlineActive ? 'rgba(239, 68, 68, 0.15)' : 'rgba(255, 255, 255, 0.04)',
-                border: `1px solid ${offlineActive ? '#ef4444' : 'var(--color-border-default)'}`,
-                color: offlineActive ? '#ef4444' : 'var(--color-text-primary)',
+                background: offlineActive ? 'rgba(185, 28, 28, 0.1)' : '#FFFFFF',
+                border: `1px solid ${offlineActive ? '#b91c1c' : 'var(--c-soft-steel)'}`,
+                color: offlineActive ? '#b91c1c' : 'var(--c-deep-navy)',
                 padding: '8px 14px',
                 borderRadius: '8px',
                 fontSize: '11px',
@@ -214,6 +218,7 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
+                boxShadow: 'var(--shadow-sm)',
                 transition: 'all var(--transition-fast)'
               }}
             >
@@ -227,9 +232,9 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
               onClick={() => handlePass(3, 'Pass 3 (RJ14-12 Re-detection)')}
               disabled={loading}
               style={{
-                background: 'rgba(16, 185, 129, 0.12)',
-                border: '1px solid rgba(16, 185, 129, 0.35)',
-                color: '#10b981',
+                background: 'rgba(21, 128, 61, 0.1)',
+                border: '1px solid rgba(21, 128, 61, 0.35)',
+                color: '#15803d',
                 padding: '8px 14px',
                 borderRadius: '8px',
                 fontSize: '11px',
@@ -238,6 +243,7 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
+                boxShadow: 'var(--shadow-sm)',
                 transition: 'all var(--transition-fast)'
               }}
             >
@@ -251,9 +257,9 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
               onClick={handleReset}
               disabled={loading}
               style={{
-                background: 'transparent',
-                border: '1px solid var(--color-border-subtle)',
-                color: 'var(--color-text-muted)',
+                background: '#FFFFFF',
+                border: '1px solid var(--c-soft-steel)',
+                color: 'var(--c-slate-blue)',
                 padding: '8px 14px',
                 borderRadius: '8px',
                 fontSize: '11px',
@@ -263,6 +269,7 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
                 alignItems: 'center',
                 gap: '6px',
                 marginLeft: 'auto',
+                boxShadow: 'var(--shadow-sm)',
                 transition: 'all var(--transition-fast)'
               }}
             >
@@ -275,12 +282,12 @@ export default function DemoControlPanel({ onRefresh, onOpenBytesModal }) {
           {/* Status Toast */}
           {statusMsg && (
             <div style={{
-              background: 'var(--color-surface-elevated)',
-              border: '1px solid rgba(56, 189, 248, 0.3)',
+              background: 'var(--color-surface-subtle)',
+              border: '1px solid var(--color-border-default)',
               padding: '8px 14px',
               borderRadius: '8px',
               fontSize: '11px',
-              color: 'var(--color-accent)',
+              color: 'var(--c-deep-navy)',
               display: 'flex',
               alignItems: 'center',
               gap: '8px',

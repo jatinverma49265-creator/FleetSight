@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-09-30T13:33:03.813Z",
-  "avgScore": 91,
+  "timestamp": "2026-09-30T13:52:54.521Z",
+  "avgScore": 90,
   "reports": [
     {
       "view": "Public Portal",
@@ -87,6 +87,28 @@
     },
     {
       "view": "Traffic Analysis",
+      "score": 90,
+      "passedChecks": 19,
+      "violations": 2,
+      "critical": 1,
+      "serious": 1,
+      "moderate": 0,
+      "minor": 0,
+      "violationDetails": [
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "description": "Ensure buttons have discernible text"
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds"
+        }
+      ]
+    },
+    {
+      "view": "Audit Trail",
       "score": 86,
       "passedChecks": 18,
       "violations": 3,
@@ -109,28 +131,6 @@
           "id": "scrollable-region-focusable",
           "impact": "serious",
           "description": "Ensure elements that have scrollable content are accessible by keyboard in Safari"
-        }
-      ]
-    },
-    {
-      "view": "Audit Trail",
-      "score": 91,
-      "passedChecks": 20,
-      "violations": 2,
-      "critical": 1,
-      "serious": 1,
-      "moderate": 0,
-      "minor": 0,
-      "violationDetails": [
-        {
-          "id": "button-name",
-          "impact": "critical",
-          "description": "Ensure buttons have discernible text"
-        },
-        {
-          "id": "color-contrast",
-          "impact": "serious",
-          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds"
         }
       ]
     }

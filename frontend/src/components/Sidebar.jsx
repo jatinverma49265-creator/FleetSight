@@ -12,10 +12,10 @@ import {
 
 export default function Sidebar({ activeTab, setActiveTab, currentRole, setCurrentRole }) {
   const roles = [
-    { id: 'engineer', label: 'PWD Engineer', color: '#10b981' },
-    { id: 'admin', label: 'City Admin', color: '#38bdf8' },
-    { id: 'police', label: 'Traffic Police', color: '#818cf8' },
-    { id: 'viewer', label: 'Public Viewer', color: '#8A857D' },
+    { id: 'engineer', label: 'PWD Engineer', color: '#15803d' },
+    { id: 'admin', label: 'City Admin', color: '#1B263B' },
+    { id: 'police', label: 'Traffic Police', color: '#415A77' },
+    { id: 'viewer', label: 'Public Viewer', color: '#778DA9' },
   ];
 
   const tabs = [
@@ -35,31 +35,31 @@ export default function Sidebar({ activeTab, setActiveTab, currentRole, setCurre
           display: 'flex',
           alignItems: 'center',
           gap: '12px',
-          paddingBottom: '24px',
-          borderBottom: '1px solid var(--color-border-subtle)',
+          paddingBottom: '22px',
+          borderBottom: '1px solid var(--color-border-default)',
           marginBottom: '20px'
         }}>
           <div style={{
-            width: '36px',
-            height: '36px',
+            width: '38px',
+            height: '38px',
             borderRadius: '10px',
-            background: 'linear-gradient(135deg, #6F452E, #54311D)',
-            border: '1px solid #85624F',
+            background: 'linear-gradient(135deg, var(--c-deep-navy), var(--c-rich-navy))',
+            border: '1px solid var(--c-slate-blue)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#FEFEFE',
-            boxShadow: '0 4px 12px rgba(84, 49, 29, 0.4)'
+            color: '#FFFFFF',
+            boxShadow: '0 4px 12px rgba(13, 27, 42, 0.18)'
           }}>
-            <Bus size={19} />
+            <Bus size={20} />
           </div>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '16px', fontWeight: '800', letterSpacing: '-0.02em', color: 'var(--color-text-primary)' }}>
+              <span style={{ fontSize: '17px', fontWeight: '800', letterSpacing: '-0.02em', color: 'var(--c-rich-navy)' }}>
                 FleetSight
               </span>
             </div>
-            <span style={{ fontSize: '10px', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>
+            <span style={{ fontSize: '10px', color: 'var(--c-slate-blue)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>
               Mobile Urban Sensing
             </span>
           </div>
@@ -67,7 +67,7 @@ export default function Sidebar({ activeTab, setActiveTab, currentRole, setCurre
 
         {/* Navigation Item List */}
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-          <div style={{ fontSize: '10px', fontWeight: '700', color: 'var(--color-text-dim)', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0 12px 6px' }}>
+          <div style={{ fontSize: '10px', fontWeight: '700', color: 'var(--c-slate-blue)', textTransform: 'uppercase', letterSpacing: '0.08em', padding: '0 12px 6px' }}>
             Navigation
           </div>
           {tabs.map((tab) => {
@@ -80,7 +80,7 @@ export default function Sidebar({ activeTab, setActiveTab, currentRole, setCurre
                 onClick={() => setActiveTab(tab.id)}
                 className={`sidebar-nav-btn ${isActive ? 'active' : ''}`}
               >
-                <Icon size={16} style={{ color: isActive ? 'var(--color-accent)' : 'var(--color-text-muted)' }} />
+                <Icon size={16} />
                 <span>{tab.label}</span>
               </button>
             );
@@ -90,7 +90,7 @@ export default function Sidebar({ activeTab, setActiveTab, currentRole, setCurre
 
       {/* Role Switcher & System Profile Footer */}
       <div style={{
-        background: 'var(--color-surface-elevated)',
+        background: 'var(--color-surface-subtle)',
         border: '1px solid var(--color-border-default)',
         borderRadius: 'var(--radius-md)',
         padding: '12px 14px',
@@ -100,12 +100,12 @@ export default function Sidebar({ activeTab, setActiveTab, currentRole, setCurre
       }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <UserCheck size={14} style={{ color: 'var(--color-accent)' }} />
-            <span style={{ fontSize: '10px', fontWeight: '700', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            <UserCheck size={14} style={{ color: 'var(--c-deep-navy)' }} />
+            <span style={{ fontSize: '10px', fontWeight: '700', color: 'var(--c-slate-blue)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               ACTIVE ROLE
             </span>
           </div>
-          <span className="badge-simulated" style={{ fontSize: '9px', padding: '1px 5px' }}>ACTIVE</span>
+          <span className="badge-simulated" style={{ fontSize: '9px', padding: '1px 6px' }}>ACTIVE</span>
         </div>
 
         <select
@@ -114,20 +114,21 @@ export default function Sidebar({ activeTab, setActiveTab, currentRole, setCurre
           value={currentRole}
           onChange={(e) => setCurrentRole(e.target.value)}
           style={{
-            background: 'var(--color-surface-subtle)',
-            color: 'var(--color-text-primary)',
-            border: '1px solid var(--color-border-default)',
+            background: '#FFFFFF',
+            color: 'var(--c-rich-navy)',
+            border: '1px solid var(--c-soft-steel)',
             borderRadius: '6px',
-            padding: '6px 8px',
+            padding: '7px 10px',
             fontWeight: '700',
             fontSize: '12px',
             cursor: 'pointer',
             outline: 'none',
-            width: '100%'
+            width: '100%',
+            transition: 'border-color var(--transition-fast)'
           }}
         >
           {roles.map((r) => (
-            <option key={r.id} value={r.id} style={{ background: '#181512', color: '#FEFEFE' }}>
+            <option key={r.id} value={r.id} style={{ background: '#FFFFFF', color: '#0D1B2A' }}>
               {r.label}
             </option>
           ))}

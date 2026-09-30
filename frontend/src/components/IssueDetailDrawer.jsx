@@ -10,7 +10,7 @@ export default function IssueDetailDrawer({ issue, onClose }) {
   return (
     <aside
       id="issue-detail-drawer"
-      className="glass-panel"
+      className="glass-panel animate-fade-in"
       style={{
         width: '380px',
         maxHeight: 'calc(100vh - 210px)',
@@ -19,7 +19,7 @@ export default function IssueDetailDrawer({ issue, onClose }) {
         display: 'flex',
         flexDirection: 'column',
         gap: '16px',
-        background: 'var(--color-surface)',
+        background: '#FFFFFF',
         border: '1px solid var(--color-border-default)',
         borderRadius: 'var(--radius-lg)',
         boxShadow: 'var(--shadow-lg)',
@@ -30,9 +30,9 @@ export default function IssueDetailDrawer({ issue, onClose }) {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
             <span style={{
-              background: isVerified ? 'rgba(16, 185, 129, 0.12)' : 'rgba(250, 204, 21, 0.12)',
-              color: isVerified ? '#10b981' : '#facc15',
-              border: `1px solid ${isVerified ? 'rgba(16, 185, 129, 0.35)' : 'rgba(250, 204, 21, 0.35)'}`,
+              background: isVerified ? 'rgba(21, 128, 61, 0.12)' : 'rgba(180, 83, 9, 0.12)',
+              color: isVerified ? '#15803d' : '#b45309',
+              border: `1px solid ${isVerified ? 'rgba(21, 128, 61, 0.35)' : 'rgba(180, 83, 9, 0.35)'}`,
               padding: '2px 8px',
               borderRadius: '4px',
               fontSize: '10px',
@@ -44,10 +44,10 @@ export default function IssueDetailDrawer({ issue, onClose }) {
             </span>
             <span className="badge-simulated">SIMULATED</span>
           </div>
-          <h3 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--color-text-primary)', margin: 0 }}>
+          <h3 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--c-rich-navy)', margin: 0 }}>
             {issue.detection_class.replace('_', ' ').toUpperCase()}
           </h3>
-          <p style={{ fontSize: '11px', color: 'var(--color-text-muted)', marginTop: '2px', margin: 0 }}>
+          <p style={{ fontSize: '11px', color: 'var(--c-slate-blue)', marginTop: '2px', margin: 0, fontWeight: 500 }}>
             ID: <span style={{ fontFamily: 'var(--font-mono)' }}>{issue.issue_id}</span>
           </p>
         </div>
@@ -56,15 +56,16 @@ export default function IssueDetailDrawer({ issue, onClose }) {
           aria-label="Close Issue Details"
           onClick={onClose}
           style={{
-            background: 'var(--color-surface-elevated)',
-            border: '1px solid var(--color-border-default)',
-            color: 'var(--color-text-secondary)',
+            background: '#FFFFFF',
+            border: '1px solid var(--c-soft-steel)',
+            color: 'var(--c-deep-navy)',
             padding: '6px',
             borderRadius: '6px',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            boxShadow: 'var(--shadow-sm)',
             transition: 'all var(--transition-fast)'
           }}
         >
@@ -89,16 +90,16 @@ export default function IssueDetailDrawer({ issue, onClose }) {
         ) : (
           <div style={{
             height: '160px',
-            background: 'linear-gradient(180deg, #142130 0%, #0b121b 100%)',
+            background: 'linear-gradient(180deg, var(--c-light-bg) 0%, #D5D7D1 100%)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '8px',
-            color: 'var(--color-text-muted)',
+            color: 'var(--c-slate-blue)',
           }}>
             <Camera size={26} />
-            <span style={{ fontSize: '11px', fontWeight: 600 }}>Edge Cropped Sensor Frame</span>
+            <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--c-deep-navy)' }}>Edge Cropped Sensor Frame</span>
           </div>
         )}
 
@@ -107,15 +108,15 @@ export default function IssueDetailDrawer({ issue, onClose }) {
           position: 'absolute',
           top: '8px',
           right: '8px',
-          background: 'rgba(8, 13, 20, 0.92)',
-          border: '1px solid rgba(16, 185, 129, 0.4)',
+          background: 'rgba(13, 27, 42, 0.92)',
+          border: '1px solid rgba(21, 128, 61, 0.4)',
           padding: '3px 8px',
           borderRadius: '4px',
           display: 'flex',
           alignItems: 'center',
           gap: '4px',
           fontSize: '9px',
-          color: '#10b981',
+          color: '#22c55e',
           fontWeight: '700',
         }}>
           <ShieldCheck size={12} />
@@ -128,11 +129,12 @@ export default function IssueDetailDrawer({ issue, onClose }) {
           bottom: '8px',
           left: '8px',
           background: 'var(--color-safety-orange)',
-          color: '#080d14',
+          color: '#FFFFFF',
           fontSize: '10px',
           fontWeight: '800',
           padding: '2px 8px',
           borderRadius: '4px',
+          boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
         }}>
           {issue.detection_class} · {issue.severity.toUpperCase()}
         </div>
@@ -140,30 +142,30 @@ export default function IssueDetailDrawer({ issue, onClose }) {
 
       {/* Priority Score & Explainability Breakdown */}
       <div style={{
-        background: 'var(--color-surface-elevated)',
+        background: 'var(--color-surface-subtle)',
         border: '1px solid var(--color-border-default)',
         borderRadius: 'var(--radius-md)',
         padding: '16px',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
           <div>
-            <div style={{ fontSize: '10px', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: '700' }}>
+            <div style={{ fontSize: '10px', color: 'var(--c-slate-blue)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: '700' }}>
               Explainable Priority Score
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginTop: '2px' }}>
-              <span style={{ fontSize: '32px', fontWeight: '800', color: 'var(--color-accent)', fontVariantNumeric: 'tabular-nums' }}>
+              <span style={{ fontSize: '32px', fontWeight: '800', color: 'var(--c-deep-navy)', fontVariantNumeric: 'tabular-nums' }}>
                 {issue.priority_score}
               </span>
-              <span style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>/ 100</span>
+              <span style={{ fontSize: '12px', color: 'var(--c-slate-blue)', fontWeight: 600 }}>/ 100</span>
             </div>
           </div>
           <div style={{
-            background: 'rgba(56, 189, 248, 0.12)',
-            border: '1px solid rgba(56, 189, 248, 0.3)',
+            background: 'rgba(27, 38, 59, 0.1)',
+            border: '1px solid rgba(27, 38, 59, 0.25)',
             borderRadius: '6px',
             padding: '4px 10px',
             fontSize: '11px',
-            color: 'var(--color-accent)',
+            color: 'var(--c-deep-navy)',
             fontWeight: '700',
           }}>
             {issue.observation_count >= 2 ? 'Corroborated' : 'Single Pass'}
@@ -174,42 +176,42 @@ export default function IssueDetailDrawer({ issue, onClose }) {
         {breakdown && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '10px' }}>
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--c-deep-navy)', fontWeight: 600 }}>
                 <span>Defect Severity ({breakdown.severity_level})</span>
-                <strong style={{ color: 'var(--color-text-primary)' }}>+{breakdown.severity_weight} / 40</strong>
+                <strong style={{ color: '#b91c1c' }}>+{breakdown.severity_weight} / 40</strong>
               </div>
-              <div style={{ width: '100%', height: '5px', background: 'rgba(255,255,255,0.06)', borderRadius: '3px', overflow: 'hidden', marginTop: '3px' }}>
-                <div style={{ width: `${(breakdown.severity_weight / 40) * 100}%`, height: '100%', background: '#ef4444' }} />
+              <div style={{ width: '100%', height: '6px', background: 'rgba(119, 141, 169, 0.25)', borderRadius: '3px', overflow: 'hidden', marginTop: '3px' }}>
+                <div style={{ width: `${(breakdown.severity_weight / 40) * 100}%`, height: '100%', background: '#b91c1c' }} />
               </div>
             </div>
 
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--c-deep-navy)', fontWeight: 600 }}>
                 <span>Multi-Bus Recurrence ({issue.observation_count} passes)</span>
-                <strong style={{ color: 'var(--color-text-primary)' }}>+{breakdown.recurrence_weight} / 30</strong>
+                <strong style={{ color: 'var(--c-deep-navy)' }}>+{breakdown.recurrence_weight} / 30</strong>
               </div>
-              <div style={{ width: '100%', height: '5px', background: 'rgba(255,255,255,0.06)', borderRadius: '3px', overflow: 'hidden', marginTop: '3px' }}>
-                <div style={{ width: `${(breakdown.recurrence_weight / 30) * 100}%`, height: '100%', background: '#38bdf8' }} />
+              <div style={{ width: '100%', height: '6px', background: 'rgba(119, 141, 169, 0.25)', borderRadius: '3px', overflow: 'hidden', marginTop: '3px' }}>
+                <div style={{ width: `${(breakdown.recurrence_weight / 30) * 100}%`, height: '100%', background: 'var(--c-deep-navy)' }} />
               </div>
             </div>
 
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--c-deep-navy)', fontWeight: 600 }}>
                 <span>Corridor Context ({breakdown.road_classification})</span>
-                <strong style={{ color: 'var(--color-text-primary)' }}>+{breakdown.context_weight} / 20</strong>
+                <strong style={{ color: 'var(--c-slate-blue)' }}>+{breakdown.context_weight} / 20</strong>
               </div>
-              <div style={{ width: '100%', height: '5px', background: 'rgba(255,255,255,0.06)', borderRadius: '3px', overflow: 'hidden', marginTop: '3px' }}>
-                <div style={{ width: `${(breakdown.context_weight / 20) * 100}%`, height: '100%', background: '#818cf8' }} />
+              <div style={{ width: '100%', height: '6px', background: 'rgba(119, 141, 169, 0.25)', borderRadius: '3px', overflow: 'hidden', marginTop: '3px' }}>
+                <div style={{ width: `${(breakdown.context_weight / 20) * 100}%`, height: '100%', background: 'var(--c-slate-blue)' }} />
               </div>
             </div>
 
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--c-deep-navy)', fontWeight: 600 }}>
                 <span>Detector Confidence</span>
-                <strong style={{ color: 'var(--color-text-primary)' }}>+{breakdown.confidence_weight} / 10</strong>
+                <strong style={{ color: '#b45309' }}>+{breakdown.confidence_weight} / 10</strong>
               </div>
-              <div style={{ width: '100%', height: '5px', background: 'rgba(255,255,255,0.06)', borderRadius: '3px', overflow: 'hidden', marginTop: '3px' }}>
-                <div style={{ width: `${(breakdown.confidence_weight / 10) * 100}%`, height: '100%', background: '#facc15' }} />
+              <div style={{ width: '100%', height: '6px', background: 'rgba(119, 141, 169, 0.25)', borderRadius: '3px', overflow: 'hidden', marginTop: '3px' }}>
+                <div style={{ width: `${(breakdown.confidence_weight / 10) * 100}%`, height: '100%', background: '#b45309' }} />
               </div>
             </div>
           </div>
@@ -218,22 +220,22 @@ export default function IssueDetailDrawer({ issue, onClose }) {
 
       {/* Observation Metadata List */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '12px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-text-secondary)' }}>
-          <MapPin size={14} style={{ color: 'var(--color-accent)' }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--c-slate-blue)' }}>
+          <MapPin size={14} style={{ color: 'var(--c-deep-navy)' }} />
           <span>{issue.road_segment}</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-text-secondary)' }}>
-          <Bus size={14} style={{ color: '#818cf8' }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--c-slate-blue)' }}>
+          <Bus size={14} style={{ color: 'var(--c-deep-navy)' }} />
           <span>
-            Buses: <strong style={{ color: 'var(--color-text-primary)' }}>{issue.bus_ids.join(', ') || 'N/A'}</strong> ({issue.observation_count} total passes)
+            Buses: <strong style={{ color: 'var(--c-rich-navy)' }}>{issue.bus_ids.join(', ') || 'N/A'}</strong> ({issue.observation_count} total passes)
           </span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-text-secondary)' }}>
-          <Camera size={14} style={{ color: '#c084fc' }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--c-slate-blue)' }}>
+          <Camera size={14} style={{ color: 'var(--c-slate-blue)' }} />
           <span>Cameras: {issue.camera_ids.join(', ') || 'N/A'}</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-text-secondary)' }}>
-          <Clock size={14} style={{ color: '#facc15' }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--c-slate-blue)' }}>
+          <Clock size={14} style={{ color: '#b45309' }} />
           <span>Last detected: {new Date(issue.last_detected_at).toLocaleTimeString()}</span>
         </div>
       </div>

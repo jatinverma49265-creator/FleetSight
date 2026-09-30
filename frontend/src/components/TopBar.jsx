@@ -18,12 +18,12 @@ export default function TopBar({ activeTab, lastUpdated, onRefresh, isRefreshing
     <header className="topbar-container">
       {/* Left: Context Breadcrumb */}
       <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11px', color: 'var(--color-text-muted)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11px', color: 'var(--c-slate-blue)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
           <span>FleetSight</span>
           <span>/</span>
-          <span style={{ color: 'var(--color-accent)' }}>{activeTab.replace('_', ' ')}</span>
+          <span style={{ color: 'var(--c-deep-navy)', fontWeight: '700' }}>{activeTab.replace('_', ' ')}</span>
         </div>
-        <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--color-text-primary)', margin: '2px 0 0 0' }}>
+        <h2 style={{ fontSize: '17px', fontWeight: '800', color: 'var(--c-rich-navy)', margin: '2px 0 0 0' }}>
           {getTabTitle()}
         </h2>
       </div>
@@ -36,13 +36,15 @@ export default function TopBar({ activeTab, lastUpdated, onRefresh, isRefreshing
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          background: 'var(--color-surface-elevated)',
+          background: '#FFFFFF',
           border: '1px solid var(--color-border-default)',
-          padding: '6px 14px',
+          padding: '7px 14px',
           borderRadius: 'var(--radius-full)',
-          width: '240px'
+          width: '240px',
+          boxShadow: 'var(--shadow-sm)',
+          transition: 'all var(--transition-fast)'
         }}>
-          <Search size={14} style={{ color: 'var(--color-text-muted)' }} />
+          <Search size={14} style={{ color: 'var(--c-slate-blue)' }} />
           <input
             type="text"
             placeholder="Search corridors, IDs..."
@@ -50,19 +52,20 @@ export default function TopBar({ activeTab, lastUpdated, onRefresh, isRefreshing
             style={{
               background: 'transparent',
               border: 'none',
-              color: 'var(--color-text-primary)',
+              color: 'var(--c-rich-navy)',
               fontSize: '12px',
               outline: 'none',
-              width: '100%'
+              width: '100%',
+              fontWeight: 500
             }}
           />
-          <span style={{ fontSize: '10px', color: 'var(--color-text-dim)', background: 'rgba(255,255,255,0.06)', padding: '1px 5px', borderRadius: '4px', fontWeight: 600 }}>
+          <span style={{ fontSize: '10px', color: 'var(--c-slate-blue)', background: 'var(--color-surface-subtle)', padding: '1px 5px', borderRadius: '4px', fontWeight: 700, border: '1px solid var(--color-border-subtle)' }}>
             ⌘K
           </span>
         </div>
 
         {/* Sync Button */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11px', color: 'var(--color-text-muted)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11px', color: 'var(--c-slate-blue)' }}>
           <button
             id="manual-refresh-btn"
             onClick={onRefresh}
@@ -72,21 +75,22 @@ export default function TopBar({ activeTab, lastUpdated, onRefresh, isRefreshing
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
-              background: 'var(--color-surface-elevated)',
-              border: '1px solid var(--color-border-default)',
-              color: 'var(--color-text-secondary)',
-              padding: '6px 12px',
+              background: '#FFFFFF',
+              border: '1px solid var(--c-soft-steel)',
+              color: 'var(--c-deep-navy)',
+              padding: '7px 13px',
               borderRadius: 'var(--radius-md)',
               cursor: 'pointer',
-              fontSize: '11px',
-              fontWeight: 600,
+              fontSize: '11.5px',
+              fontWeight: 700,
+              boxShadow: 'var(--shadow-sm)',
               transition: 'all var(--transition-fast)',
             }}
           >
             <RefreshCw size={12} className={isRefreshing ? 'animate-spin' : ''} style={{ animation: isRefreshing ? 'spin 1s linear infinite' : 'none' }} />
             <span>{isRefreshing ? 'Syncing...' : 'Sync'}</span>
           </button>
-          <span style={{ fontVariantNumeric: 'tabular-nums', fontSize: '11px' }}>
+          <span style={{ fontVariantNumeric: 'tabular-nums', fontSize: '11px', fontWeight: 600, color: 'var(--c-slate-blue)' }}>
             {lastUpdated ? lastUpdated.toLocaleTimeString() : 'Live'}
           </span>
         </div>
