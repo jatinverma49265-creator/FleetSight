@@ -21,7 +21,7 @@
 | **Loop 7** | Simulated 2-3 Bus Demo | ✅ Complete | 2026-09-30 | Deterministic corridor replay (`scripts/simulate_buses.py`), offline store-and-forward edge caching test with 0 duplicates upon re-sync, automated re-detection loop (repaired -> closed, persistent -> escalated), UI Demo Control Panel, and automated 6-minute scenario script (`scripts/run_demo_scenario.py`). |
 | **Loop 8** | End-to-End Testing & Performance | ✅ Complete | 2026-09-30 | Pytest E2E (156 unit/integration tests) + Playwright browser E2E (6 tests), automated metrics benchmark (`scripts/benchmark_and_metrics.py`), generating `docs/metrics.md` (2,959 ev/s throughput, 0.39ms p95 latency, 100% bandwidth reduction). |
 | **Loop 9** | Public Website, Privacy & Legal | ✅ Complete | 2026-09-30 | Public portal component (`frontend/src/components/PublicPortal.jsx`), sourced MoRTH 2022 statistics, 5-stage closed-loop architecture diagram, DPDP Act 2023 privacy policy (`docs/privacy_policy.md`), WCAG 2.1 AA compliant UI, and prototype disclaimers. |
-| **Loop 10** | Final Demo & Documentation | ⏳ Next | Pending | Comprehensive README, architecture diagrams, `docs/demo.md` (6-min script), `docs/qa.md`, fresh-clone verification. |
+| **Loop 10** | Final Demo & Documentation | ✅ Complete | 2026-09-30 | Comprehensive `README.md` with system diagrams, quickstart, and metrics; 6-minute chronological live presentation script (`docs/demo.md`); QA and test evaluation report (`docs/qa.md`); zero-config execution verification (156 pytest + 6 Playwright tests + repeatable corridor scenario). |
 | **Loop 11** | Public Release (Locked) | 🔒 Locked | Pending | Secret scan (gitleaks), licence compliance (MIT/Apache + YOLO AGPL/RDD notice), repo hygiene, release readiness. |
 
 ---
