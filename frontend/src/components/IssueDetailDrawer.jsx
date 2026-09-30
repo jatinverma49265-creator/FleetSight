@@ -53,6 +53,7 @@ export default function IssueDetailDrawer({ issue, onClose }) {
         </div>
         <button
           id="close-drawer-btn"
+          aria-label="Close Issue Details"
           onClick={onClose}
           style={{
             background: 'var(--color-surface-elevated)',

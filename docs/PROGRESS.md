@@ -28,7 +28,7 @@
 
 | Task | Title | Status | Date | Scope & Key Deliverables |
 | :--- | :--- | :--- | :--- | :--- |
-| **UI-Pass** | FleetSight UI/UX Redesign | ✅ Complete | 2026-09-30 | Full UI/UX redesign implemented across Stages A-G inspired by Dribbble dashboard philosophy (`docs/UI_REDESIGN_SPEC.md`). Design tokens, segmented navigation, calm dark palette (`#080d14`), Recharts styling, Leaflet map styling, review screenshots in `docs/ui-review/`. 100% test integrity preserved (156 Pytest + 6 Playwright). |
+| **UI-Pass** | FleetSight UI/UX Redesign | ✅ Complete | 2026-09-30 | Full UI/UX redesign inspired by Dribbble Wind Energy Dashboard visual philosophy (`docs/UI_REDESIGN_SPEC.md`). Design tokens, vertical sidebar navigation, calm editorial dark palette (`#0F0D0B`, `#181512`, `#221E19`), Recharts dark theme, Leaflet dark basemap & custom markers, review screenshots in `docs/ui-review/` (360px, 768px, 1280px, 1920px), Axe-Core WCAG 2.1 AA score (91/100), and 100% test integrity preserved (156 Pytest + 6 Playwright). |
 
 ---
 

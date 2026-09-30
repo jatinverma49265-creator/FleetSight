@@ -41,6 +41,8 @@ export default function PublicPortal({ onLaunchDashboard }) {
 
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
           <button
+            id="btn-launch-command-center"
+            aria-label="Launch GIS Command Center"
             onClick={onLaunchDashboard}
             style={{
               padding: '12px 30px',

@@ -1,0 +1,138 @@
+{
+  "timestamp": "2026-09-30T13:33:03.813Z",
+  "avgScore": 91,
+  "reports": [
+    {
+      "view": "Public Portal",
+      "score": 90,
+      "passedChecks": 19,
+      "violations": 2,
+      "critical": 1,
+      "serious": 1,
+      "moderate": 0,
+      "minor": 0,
+      "violationDetails": [
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "description": "Ensure buttons have discernible text"
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds"
+        }
+      ]
+    },
+    {
+      "view": "Dashboard Overview",
+      "score": 90,
+      "passedChecks": 18,
+      "violations": 2,
+      "critical": 1,
+      "serious": 1,
+      "moderate": 0,
+      "minor": 0,
+      "violationDetails": [
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "description": "Ensure buttons have discernible text"
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds"
+        }
+      ]
+    },
+    {
+      "view": "GIS Risk Map",
+      "score": 96,
+      "passedChecks": 24,
+      "violations": 1,
+      "critical": 1,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0,
+      "violationDetails": [
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "description": "Ensure buttons have discernible text"
+        }
+      ]
+    },
+    {
+      "view": "Work Orders Queue",
+      "score": 90,
+      "passedChecks": 18,
+      "violations": 2,
+      "critical": 1,
+      "serious": 1,
+      "moderate": 0,
+      "minor": 0,
+      "violationDetails": [
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "description": "Ensure buttons have discernible text"
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds"
+        }
+      ]
+    },
+    {
+      "view": "Traffic Analysis",
+      "score": 86,
+      "passedChecks": 18,
+      "violations": 3,
+      "critical": 1,
+      "serious": 2,
+      "moderate": 0,
+      "minor": 0,
+      "violationDetails": [
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "description": "Ensure buttons have discernible text"
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds"
+        },
+        {
+          "id": "scrollable-region-focusable",
+          "impact": "serious",
+          "description": "Ensure elements that have scrollable content are accessible by keyboard in Safari"
+        }
+      ]
+    },
+    {
+      "view": "Audit Trail",
+      "score": 91,
+      "passedChecks": 20,
+      "violations": 2,
+      "critical": 1,
+      "serious": 1,
+      "moderate": 0,
+      "minor": 0,
+      "violationDetails": [
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "description": "Ensure buttons have discernible text"
+        },
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds"
+        }
+      ]
+    }
+  ]
+}

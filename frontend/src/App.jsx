@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import Navbar from './components/Navbar';
-import KPIRow from './components/KPIRow';
+import Sidebar from './components/Sidebar';
+import TopBar from './components/TopBar';
+import DashboardOverview from './components/DashboardOverview';
 import DemoControlPanel from './components/DemoControlPanel';
 import BytesComparisonModal from './components/BytesComparisonModal';
 import MapView from './components/MapView';
@@ -70,88 +71,102 @@ export default function App() {
   const selectedIssue = issues.find((i) => i.issue_id === selectedIssueId) || issues[0] || null;
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div className="app-layout">
       
-      {/* Top Navbar */}
-      <Navbar
+      {/* Left Vertical Sidebar Navigation */}
+      <Sidebar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         currentRole={currentRole}
         setCurrentRole={setCurrentRole}
-        lastUpdated={lastUpdated}
-        onRefresh={() => loadData(true)}
-        isRefreshing={isRefreshing}
       />
 
-      {/* Public Portal View */}
-      {activeTab === 'portal' && (
-        <PublicPortal onLaunchDashboard={() => setActiveTab('map')} />
-      )}
+      {/* Main Content Area */}
+      <div className="main-wrapper">
+        
+        {/* Top Context Bar */}
+        <TopBar
+          activeTab={activeTab}
+          lastUpdated={lastUpdated}
+          onRefresh={() => loadData(true)}
+          isRefreshing={isRefreshing}
+        />
 
-      {/* KPI Overview Bar (visible on command center tabs) */}
-      {activeTab !== 'portal' && (
-        <KPIRow kpis={kpis} />
-      )}
-
-      {/* Demo Control Bar for Loop 7 (visible on command center tabs) */}
-      {activeTab !== 'portal' && (
+        {/* Demo Control Strip (Visible across all tabs) */}
         <DemoControlPanel
           onRefresh={() => loadData(true)}
           onOpenBytesModal={() => setBytesModalOpen(true)}
         />
-      )}
 
-      {/* Main Content Body */}
-      <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        
-        {/* Map Tab */}
-        {activeTab === 'map' && (
-          <div style={{
-            display: 'flex',
-            gap: '16px',
-            margin: '20px 24px',
-            position: 'relative',
-          }}>
-            <div style={{ flex: 1 }}>
-              <MapView
-                issues={issues}
-                onSelectIssue={(id) => setSelectedIssueId(id)}
-                selectedIssueId={selectedIssueId}
-                activeFilter={activeFilter}
-                setActiveFilter={setActiveFilter}
-              />
+        {/* Dynamic Main View */}
+        <main style={{ flex: 1, minWidth: 0 }}>
+          
+          {/* 1. Public Portal & DPDP Charter */}
+          {activeTab === 'portal' && (
+            <PublicPortal onLaunchDashboard={() => setActiveTab('dashboard')} />
+          )}
+
+          {/* 2. Overview & Insights Dashboard */}
+          {activeTab === 'dashboard' && (
+            <DashboardOverview
+              kpis={kpis}
+              trafficData={trafficData}
+              issues={issues}
+              workOrders={workOrders}
+              onNavigateTab={setActiveTab}
+            />
+          )}
+
+          {/* 3. GIS Live Map Tab */}
+          {activeTab === 'map' && (
+            <div style={{
+              display: 'flex',
+              gap: '20px',
+              margin: '20px 28px',
+              position: 'relative',
+            }}>
+              <div style={{ flex: 1 }}>
+                <MapView
+                  issues={issues}
+                  onSelectIssue={(id) => setSelectedIssueId(id)}
+                  selectedIssueId={selectedIssueId}
+                  activeFilter={activeFilter}
+                  setActiveFilter={setActiveFilter}
+                />
+              </div>
+
+              {selectedIssue && (
+                <IssueDetailDrawer
+                  issue={selectedIssue}
+                  onClose={() => setSelectedIssueId(null)}
+                />
+              )}
             </div>
+          )}
 
-            {selectedIssue && (
-              <IssueDetailDrawer
-                issue={selectedIssue}
-                onClose={() => setSelectedIssueId(null)}
-              />
-            )}
-          </div>
-        )}
+          {/* 4. Work Orders Tab */}
+          {activeTab === 'work_orders' && (
+            <WorkOrdersView
+              workOrders={workOrders}
+              currentRole={currentRole}
+              onRefresh={() => loadData(true)}
+              onTriggerDenialModal={(msg) => setDenialModal({ open: true, message: msg })}
+            />
+          )}
 
-        {/* Work Orders Tab */}
-        {activeTab === 'work_orders' && (
-          <WorkOrdersView
-            workOrders={workOrders}
-            currentRole={currentRole}
-            onRefresh={() => loadData(true)}
-            onTriggerDenialModal={(msg) => setDenialModal({ open: true, message: msg })}
-          />
-        )}
+          {/* 5. Traffic Heatmap Tab */}
+          {activeTab === 'traffic' && (
+            <TrafficView trafficData={trafficData} />
+          )}
 
-        {/* Traffic Heatmap Tab */}
-        {activeTab === 'traffic' && (
-          <TrafficView trafficData={trafficData} />
-        )}
+          {/* 6. Audit Trail Tab */}
+          {activeTab === 'audit' && (
+            <AuditView currentRole={currentRole} />
+          )}
 
-        {/* Audit Trail Tab */}
-        {activeTab === 'audit' && (
-          <AuditView currentRole={currentRole} />
-        )}
+        </main>
 
-      </main>
+      </div>
 
       {/* RBAC Denial Modal */}
       <RBACDenialModal
