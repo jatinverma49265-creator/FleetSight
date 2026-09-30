@@ -1,0 +1,152 @@
+schema_version: "1.0.0"
+datasets:
+  - dataset_name: "rdd2022"
+    version: "2022.1"
+    dataset_type: "public_benchmark"
+    source: "https://crddc2022.sekilab.global/"
+    license: "CC BY-SA 4.0"
+    purpose: "Baseline road damage distress detection (potholes and cracks)"
+    classes:
+      - "D00"
+      - "D10"
+      - "D20"
+      - "D40"
+    local_path: "data/rdd2022"
+    download_instructions: "Run 'python ml/scripts/setup_rdd2022.py' after accepting CRDDC 2022 terms."
+    provenance: "Crowdsourced smartphone dashcam recordings collected across Japan, India, Czech Republic, Norway, US, and China."
+    status: "PLANNED"
+    attribution_required: "Sekilab CRDDC 2022 (Road Damage Detection Challenge 2022)"
+    face_blurring_required: false
+    consent_required: false
+    license_verified: true
+    metadata:
+      country_splits_targeted: ["India", "Japan"]
+      target_format: "yolo"
+      class_mapping:
+        D00: "longitudinal_crack"
+        D10: "transverse_crack"
+        D20: "alligator_crack"
+        D40: "pothole"
+
+  - dataset_name: "jaipur_custom"
+    version: "0.1.0"
+    dataset_type: "real_local"
+    source: "FleetSight municipal bus camera recordings, Jaipur, Rajasthan"
+    license: "Proprietary / Project Internal (Public release post-anonymization only)"
+    purpose: "Domain-specific fine-tuning and benchmark on Jaipur road and weather conditions"
+    classes:
+      - "pothole"
+      - "longitudinal_crack"
+      - "transverse_crack"
+      - "alligator_crack"
+      - "waterlogging"
+      - "damaged_sign"
+      - "zebra_crossing"
+      - "vehicle"
+      - "pedestrian"
+    local_path: "data/local/jaipur"
+    download_instructions: "Place anonymized frames into data/local/jaipur/raw and run route-day split."
+    provenance: "Front-facing 1080p 30fps cameras installed on Jaipur City Transport Service buses."
+    status: "PLANNED"
+    attribution_required: "FleetSight Project SIH26124 (Jaipur Municipal Bus Pilot)"
+    face_blurring_required: true
+    consent_required: true
+    license_verified: true
+    metadata:
+      target_frames_min: 200
+      target_frames_max: 500
+      route_aware_split: true
+      temporal_grouping: "day"
+
+  - dataset_name: "coco_pretrained"
+    version: "2017"
+    dataset_type: "public_benchmark"
+    source: "https://cocodataset.org/"
+    license: "CC BY 4.0"
+    purpose: "Pretrained detector backbone for baseline vehicle and pedestrian recognition"
+    classes:
+      - "person"
+      - "bicycle"
+      - "car"
+      - "motorcycle"
+      - "bus"
+      - "truck"
+      - "traffic light"
+      - "stop sign"
+    local_path: ""
+    download_instructions: "Automated standard checkpoints resolved through Ultralytics / YOLO upstream."
+    provenance: "Standard Common Objects in Context (COCO 2017) benchmark."
+    status: "AVAILABLE"
+    attribution_required: "Lin et al., Microsoft COCO: Common Objects in Context, ECCV 2014"
+    face_blurring_required: false
+    consent_required: false
+    license_verified: true
+    metadata:
+      model_families: ["yolo11", "yolo12", "yolo26"]
+
+  - dataset_name: "idd_india_driving_dataset"
+    version: "2.0"
+    dataset_type: "optional_restricted"
+    source: "https://idd.insaan.iiit.ac.in/"
+    license: "Academic / Research non-commercial (Requires institutional registration & approval)"
+    purpose: "Optional secondary reference for Indian unstructured traffic and road semantics"
+    classes:
+      - "drivable"
+      - "non-drivable"
+      - "vehicle"
+      - "pedestrian"
+    local_path: "data/optional/idd"
+    download_instructions: "Register at IIIT-H IDD portal, obtain authorization token, and verify terms."
+    provenance: "Collected in Hyderabad, Bangalore and neighboring highways by IIIT Hyderabad."
+    status: "PLANNED"
+    attribution_required: "Varma et al., IDD: A Dataset for Exploring Problems of Autonomous Navigation in Unconstrained Environments, WACV 2019"
+    face_blurring_required: true
+    consent_required: false
+    license_verified: false
+    metadata:
+      license_verification_required: true
+      optional_candidate: true
+
+  - dataset_name: "roboflow_pothole_optional"
+    version: "v1"
+    dataset_type: "optional_restricted"
+    source: "https://universe.roboflow.com/"
+    license: "Dataset-specific community license (Requires individual inspection & verification)"
+    purpose: "Optional candidate for pothole diversity augmentation"
+    classes:
+      - "pothole"
+    local_path: "data/optional/roboflow_pothole"
+    download_instructions: "Verify author license on Roboflow Universe before downloading or training."
+    provenance: "Curated community road distress imagery."
+    status: "PLANNED"
+    attribution_required: "Author credit on Roboflow Universe"
+    face_blurring_required: true
+    consent_required: false
+    license_verified: false
+    metadata:
+      license_verification_required: true
+      optional_candidate: true
+
+  - dataset_name: "simulated_demo"
+    version: "1.0.0"
+    dataset_type: "simulated"
+    source: "FleetSight synthetic event generator"
+    license: "MIT (FleetSight Internal Project Code)"
+    purpose: "Offline integration validation and pipeline stress testing without road footage"
+    classes:
+      - "pothole"
+      - "longitudinal_crack"
+      - "alligator_crack"
+      - "vehicle"
+      - "pedestrian"
+    local_path: "data/processed/simulated"
+    download_instructions: "Self-generating via test harness and synthetic fixtures."
+    provenance: "Procedurally generated coordinate and bounding box data marked with data_origin='simulated'."
+    status: "AVAILABLE"
+    attribution_required: "FleetSight Synthetic Test Harness"
+    face_blurring_required: false
+    consent_required: false
+    license_verified: true
+    metadata:
+      simulated: true
+      never_mix_with_benchmarks: true

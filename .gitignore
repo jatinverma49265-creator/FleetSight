@@ -216,3 +216,56 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# =============================================================================
+# FleetSight-specific
+# =============================================================================
+
+# Model weights (large binaries)
+*.pt
+*.onnx
+*.engine
+*.tflite
+weights/
+ml/weights/
+
+# Evidence / media artifacts
+data/evidence/*
+!data/evidence/.gitkeep
+data/edge_cache/*
+!data/edge_cache/.gitkeep
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/annotations/*
+!data/annotations/.gitkeep
+data/manifests/*
+!data/manifests/.gitkeep
+data/splits/*
+!data/splits/.gitkeep
+data/local/*
+!data/local/.gitkeep
+data/rdd2022/*
+!data/rdd2022/.gitkeep
+data/jaipur/*
+!data/jaipur/.gitkeep
+/datasets/
+
+# Dataset archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# Training and evaluation runs / artifacts
+runs/
+ml/runs/
+reports/
+
+# Local database volumes
+infra/pgdata/
+
+# IDE
+.vscode/
+.idea/

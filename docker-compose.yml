@@ -1,0 +1,45 @@
+# =============================================================================
+# FleetSight — Development Docker Compose
+#
+# Provides:
+#   - PostgreSQL 16 with PostGIS 3.4
+#   - FleetSight backend (FastAPI)
+#
+# Usage:
+#   docker compose up -d db        # database only
+#   docker compose up              # everything
+# =============================================================================
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: fleetsight-db
+    environment:
+      POSTGRES_DB: fleetsight
+      POSTGRES_USER: fleetsight
+      POSTGRES_PASSWORD: changeme
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fleetsight"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.backend
+    container_name: fleetsight-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
