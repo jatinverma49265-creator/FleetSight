@@ -7,7 +7,8 @@ import {
   ShieldCheck, 
   RefreshCw, 
   UserCheck, 
-  AlertTriangle 
+  AlertTriangle,
+  Globe
 } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab, currentRole, setCurrentRole, lastUpdated, onRefresh, isRefreshing }) {
@@ -19,6 +20,7 @@ export default function Navbar({ activeTab, setActiveTab, currentRole, setCurren
   ];
 
   const tabs = [
+    { id: 'portal', label: 'Public Portal & DPDP', icon: Globe },
     { id: 'map', label: 'GIS Live Map', icon: MapPin },
     { id: 'work_orders', label: 'Work Orders', icon: ClipboardList },
     { id: 'traffic', label: 'Traffic Heatmap', icon: Activity },

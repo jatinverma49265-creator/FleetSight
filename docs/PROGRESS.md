@@ -20,8 +20,8 @@
 | **Loop 6** | GIS Dashboard (Command Center) | ✅ Complete | 2026-09-30 | React + Vite + Leaflet + Recharts GIS Command Center. Interactive Jaipur corridor map, traffic heat layer, explainable work order queue, role-based views (Admin, Engineer, Police, Viewer), live audit trail, 5s polling, and verified screenshots. |
 | **Loop 7** | Simulated 2-3 Bus Demo | ✅ Complete | 2026-09-30 | Deterministic corridor replay (`scripts/simulate_buses.py`), offline store-and-forward edge caching test with 0 duplicates upon re-sync, automated re-detection loop (repaired -> closed, persistent -> escalated), UI Demo Control Panel, and automated 6-minute scenario script (`scripts/run_demo_scenario.py`). |
 | **Loop 8** | End-to-End Testing & Performance | ✅ Complete | 2026-09-30 | Pytest E2E (156 unit/integration tests) + Playwright browser E2E (6 tests), automated metrics benchmark (`scripts/benchmark_and_metrics.py`), generating `docs/metrics.md` (2,959 ev/s throughput, 0.39ms p95 latency, 100% bandwidth reduction). |
-| **Loop 9** | Public Website, Privacy & Legal | ⏳ Next | Pending | Public portal (problem, sourced statistics, architecture, bus sensing loop, DPDP Act 2023 privacy policy, WCAG 2.1 AA accessibility, disclaimer). |
-| **Loop 10** | Final Demo & Documentation | ⏳ Planned | Pending | Comprehensive README, architecture diagrams, `docs/demo.md` (6-min script), `docs/qa.md`, fresh-clone verification. |
+| **Loop 9** | Public Website, Privacy & Legal | ✅ Complete | 2026-09-30 | Public portal component (`frontend/src/components/PublicPortal.jsx`), sourced MoRTH 2022 statistics, 5-stage closed-loop architecture diagram, DPDP Act 2023 privacy policy (`docs/privacy_policy.md`), WCAG 2.1 AA compliant UI, and prototype disclaimers. |
+| **Loop 10** | Final Demo & Documentation | ⏳ Next | Pending | Comprehensive README, architecture diagrams, `docs/demo.md` (6-min script), `docs/qa.md`, fresh-clone verification. |
 | **Loop 11** | Public Release (Locked) | 🔒 Locked | Pending | Secret scan (gitleaks), licence compliance (MIT/Apache + YOLO AGPL/RDD notice), repo hygiene, release readiness. |
 
 ---

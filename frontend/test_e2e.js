@@ -21,17 +21,21 @@ async function runTests() {
     }
   }
 
-  // 1. Initial Page Load
-  await test('Dashboard loads with brand title and KPI metrics', async () => {
+  // 1. Initial Page Load (Public Portal & DPDP Charter)
+  await test('Public Portal loads with brand title, MoRTH statistics, and DPDP charter', async () => {
     await page.goto('http://127.0.0.1:5173/', { waitUntil: 'networkidle' });
     const title = await page.textContent('header');
     if (!title.includes('FleetSight')) throw new Error('Brand title not found in header');
-    const kpiBuses = await page.textContent('#kpi-buses');
-    if (!kpiBuses.includes('Active Buses')) throw new Error('KPI buses card not rendered');
+    const bodyText = await page.textContent('body');
+    if (!bodyText.includes('4,61,312') || !bodyText.includes('DPDP')) {
+      throw new Error('MoRTH statistics or DPDP charter not rendered on portal');
+    }
   });
 
   // 2. Leaflet Map Markers & Detail Drawer
   await test('GIS Map renders markers and opens Detail Drawer on click', async () => {
+    await page.click('#tab-btn-map');
+    await page.waitForTimeout(600);
     const markers = await page.$$('.custom-issue-icon');
     if (markers.length === 0) throw new Error('No issue markers rendered on Leaflet map');
     await markers[0].click();

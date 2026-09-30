@@ -9,10 +9,11 @@ import WorkOrdersView from './components/WorkOrdersView';
 import TrafficView from './components/TrafficView';
 import AuditView from './components/AuditView';
 import RBACDenialModal from './components/RBACDenialModal';
+import PublicPortal from './components/PublicPortal';
 import { fetchKPIs, fetchIssues, fetchWorkOrders, fetchTraffic } from './api';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('map');
+  const [activeTab, setActiveTab] = useState('portal');
   const [currentRole, setCurrentRole] = useState('engineer');
   const [kpis, setKpis] = useState(null);
   const [issues, setIssues] = useState([]);
@@ -82,14 +83,23 @@ export default function App() {
         isRefreshing={isRefreshing}
       />
 
-      {/* KPI Overview Bar */}
-      <KPIRow kpis={kpis} />
+      {/* Public Portal View */}
+      {activeTab === 'portal' && (
+        <PublicPortal onLaunchDashboard={() => setActiveTab('map')} />
+      )}
 
-      {/* Demo Control Bar for Loop 7 */}
-      <DemoControlPanel
-        onRefresh={() => loadData(true)}
-        onOpenBytesModal={() => setBytesModalOpen(true)}
-      />
+      {/* KPI Overview Bar (visible on command center tabs) */}
+      {activeTab !== 'portal' && (
+        <KPIRow kpis={kpis} />
+      )}
+
+      {/* Demo Control Bar for Loop 7 (visible on command center tabs) */}
+      {activeTab !== 'portal' && (
+        <DemoControlPanel
+          onRefresh={() => loadData(true)}
+          onOpenBytesModal={() => setBytesModalOpen(true)}
+        />
+      )}
 
       {/* Main Content Body */}
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
