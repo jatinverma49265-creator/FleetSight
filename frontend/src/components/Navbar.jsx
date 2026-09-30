@@ -70,7 +70,7 @@ export default function Navbar({ activeTab, setActiveTab, currentRole, setCurren
                 <span className="badge-simulated">SIMULATED DATA</span>
               </div>
               <span style={{ fontSize: '10px', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>
-                SIH26124 · Jaipur Mobile Sensing
+                Jaipur Mobile Sensing Platform
               </span>
             </div>
           </div>

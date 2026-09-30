@@ -105,7 +105,7 @@ export default function Sidebar({ activeTab, setActiveTab, currentRole, setCurre
               ACTIVE ROLE
             </span>
           </div>
-          <span className="badge-simulated" style={{ fontSize: '9px', padding: '1px 5px' }}>SIH26124</span>
+          <span className="badge-simulated" style={{ fontSize: '9px', padding: '1px 5px' }}>ACTIVE</span>
         </div>
 
         <select

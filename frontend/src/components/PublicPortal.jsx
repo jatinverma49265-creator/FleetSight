@@ -19,7 +19,7 @@ export default function PublicPortal({ onLaunchDashboard }) {
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
           <span style={{ background: 'rgba(56, 189, 248, 0.12)', color: 'var(--color-accent)', padding: '5px 14px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.05em', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
-            SMART INDIA HACKATHON 2026 · PS SIH26124
+            SMART URBAN SENSING · CLOSED-LOOP ROAD AI
           </span>
           <span style={{ background: 'rgba(250, 204, 21, 0.12)', color: '#facc15', padding: '5px 14px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 700 }}>
             SIMULATED PILOT CORRIDOR
@@ -258,7 +258,7 @@ export default function PublicPortal({ onLaunchDashboard }) {
           PROTOTYPE & LEGAL NOTICE
         </div>
         <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.85rem', lineHeight: 1.6, maxWidth: '800px', margin: '0 auto 16px' }}>
-          This software is developed as an academic and technological prototype for <strong>Smart India Hackathon 2026 (Problem Statement SIH26124)</strong>. 
+          This software is developed as an advanced municipal infrastructure sensing and closed-loop inspection platform. 
           All route simulations in the live dashboard operate on synthetic telemetry with <code style={{ color: '#38bdf8' }}>data_origin="simulated"</code>. 
           Designed in compliance with <strong>WCAG 2.1 AA</strong> accessibility and contrast standards.
         </p>
