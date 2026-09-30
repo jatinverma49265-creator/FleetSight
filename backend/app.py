@@ -35,6 +35,12 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         settings.app_env,
         settings.app_debug,
     )
+    # Seed initial demo corridor data if store is empty
+    from backend.analytics.store import store
+    if not store.issues:
+        from scripts.seed_demo_data import seed_jaipur_demo_data
+        seed_jaipur_demo_data()
+        logger.info("Seeded initial Jaipur corridor demo data.")
     yield
     logger.info("FleetSight shutting down.")
 

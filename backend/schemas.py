@@ -10,6 +10,7 @@ from __future__ import annotations
 import uuid
 from datetime import UTC, datetime
 from enum import StrEnum
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -155,8 +156,208 @@ class DetectionEvent(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# API response wrappers
+# API response wrappers & Extended Schemas for Loops 4, 5, 6
 # ---------------------------------------------------------------------------
+
+
+class UserRole(StrEnum):
+    """RBAC user roles."""
+
+    ADMIN = "admin"
+    ENGINEER = "engineer"
+    POLICE = "police"
+    VIEWER = "viewer"
+
+
+class User(BaseModel):
+    """User profile and role."""
+
+    user_id: str
+    username: str
+    name: str
+    role: UserRole
+
+
+class LoginRequest(BaseModel):
+    """Authentication login request."""
+
+    username: str
+    password: str = "fleetsight123"
+
+
+class AuthResponse(BaseModel):
+    """Authentication response token."""
+
+    access_token: str
+    token_type: str = "bearer"
+    user: User
+
+
+class IssueStatus(StrEnum):
+    """Lifecycle status of a road issue."""
+
+    CANDIDATE = "candidate"
+    VERIFIED = "verified"
+    WORK_ORDER = "work_order"
+    REPAIRED = "repaired"
+    CLOSED = "closed"
+
+
+class SeverityBreakdown(BaseModel):
+    """Explainable factors contributing to priority score (0-100)."""
+
+    score: int = Field(..., ge=0, le=100)
+    severity_level: SeverityLevel
+    severity_weight: int = Field(..., description="Base severity score contribution (0-40)")
+    recurrence_weight: int = Field(..., description="Observation / bus pass count contribution (0-30)")
+    context_weight: int = Field(..., description="Arterial vs Local road context contribution (0-20)")
+    confidence_weight: int = Field(..., description="Detector confidence contribution (0-10)")
+    road_classification: str = Field(default="Arterial", description="Arterial | Collector | Local")
+    explanation: str
+
+
+class ClusteredIssue(BaseModel):
+    """
+    Spatially clustered road defect / infrastructure issue.
+
+    Formed by corroborating events within a spatial radius (<=35m).
+    Promoted from candidate to verified when observed by 2+ distinct buses.
+    """
+
+    issue_id: str = Field(default_factory=lambda: f"ISSUE-{uuid.uuid4().hex[:8].upper()}")
+    type: DetectionType
+    detection_class: DetectionClass
+    status: IssueStatus = IssueStatus.CANDIDATE
+    severity: SeverityLevel
+    priority_score: int = Field(..., ge=0, le=100)
+    severity_breakdown: SeverityBreakdown
+    latitude: float
+    longitude: float
+    road_segment: str
+    first_detected_at: datetime
+    last_detected_at: datetime
+    observation_count: int = 1
+    bus_ids: list[str] = Field(default_factory=list)
+    camera_ids: list[str] = Field(default_factory=list)
+    event_ids: list[str] = Field(default_factory=list)
+    evidence_uri: str | None = None
+    data_origin: DataOrigin = DataOrigin.SIMULATED
+
+
+class WorkOrderStatus(StrEnum):
+    """Operational status of a maintenance work order."""
+
+    CANDIDATE = "candidate"
+    ACKNOWLEDGED = "acknowledged"
+    ASSIGNED = "assigned"
+    IN_PROGRESS = "in_progress"
+    COMPLETED = "completed"
+    CLOSED = "closed"
+    ESCALATED = "escalated"
+
+
+class WorkOrderHistoryItem(BaseModel):
+    """Audit item for work order state transition."""
+
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    action: str
+    user_id: str
+    username: str
+    role: UserRole
+    comment: str | None = None
+
+
+class WorkOrder(BaseModel):
+    """Ranked work order candidate for municipal maintenance engineers."""
+
+    work_order_id: str = Field(default_factory=lambda: f"WO-{uuid.uuid4().hex[:8].upper()}")
+    issue_id: str
+    title: str
+    description: str
+    detection_class: DetectionClass
+    severity: SeverityLevel
+    priority_score: int = Field(..., ge=0, le=100)
+    severity_breakdown: SeverityBreakdown
+    status: WorkOrderStatus = WorkOrderStatus.CANDIDATE
+    assigned_to: str | None = None
+    latitude: float
+    longitude: float
+    road_segment: str
+    observation_count: int = 1
+    corroborating_buses: list[str] = Field(default_factory=list)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    evidence_uri: str | None = None
+    data_origin: DataOrigin = DataOrigin.SIMULATED
+    history: list[WorkOrderHistoryItem] = Field(default_factory=list)
+
+
+class WorkOrderUpdateRequest(BaseModel):
+    """Request to update work order status or assignment."""
+
+    status: WorkOrderStatus | None = None
+    assigned_to: str | None = None
+    comment: str | None = None
+
+
+class TrafficSegment(BaseModel):
+    """Vehicle counts per road segment per 15-minute interval."""
+
+    segment_id: str
+    road_name: str
+    latitude: float
+    longitude: float
+    interval_start: datetime
+    interval_end: datetime
+    vehicle_count: int
+    car_count: int = 0
+    bus_count: int = 0
+    truck_count: int = 0
+    two_wheeler_count: int = 0
+    auto_rickshaw_count: int = 0
+    congestion_level: str = "moderate"  # low | moderate | heavy | severe
+    data_origin: DataOrigin = DataOrigin.SIMULATED
+
+
+class CorridorTrafficSummary(BaseModel):
+    """Corridor volume time series and segment counts."""
+
+    corridor_name: str
+    total_vehicles: int
+    time_series: list[dict[str, Any]]
+    segments: list[TrafficSegment]
+
+
+class KPIResponse(BaseModel):
+    """Operational and fleet analytics metrics."""
+
+    buses_active: int
+    km_surveyed: float
+    defects_detected: int
+    defects_verified: int
+    defects_corroborated: int
+    work_orders_created: int
+    work_orders_acknowledged: int
+    work_orders_closed: int
+    median_latency_seconds: float
+    bandwidth_saved_pct: float
+    false_positive_rate_pct: float | None = None  # None / null if not yet measured
+    data_origin: DataOrigin = DataOrigin.SIMULATED
+
+
+class AuditLogEntry(BaseModel):
+    """Immutable log entry for system actions and data access."""
+
+    audit_id: str = Field(default_factory=lambda: f"AUD-{uuid.uuid4().hex[:8].upper()}")
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    user_id: str
+    username: str
+    role: UserRole
+    action: str
+    resource_type: str
+    resource_id: str
+    details: str
+    ip_address: str = "127.0.0.1"
 
 
 class EventCreateResponse(BaseModel):
@@ -172,3 +373,4 @@ class HealthResponse(BaseModel):
     status: str = "ok"
     version: str
     environment: str
+
