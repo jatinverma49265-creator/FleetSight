@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Navbar from './components/Navbar';
 import KPIRow from './components/KPIRow';
+import DemoControlPanel from './components/DemoControlPanel';
+import BytesComparisonModal from './components/BytesComparisonModal';
 import MapView from './components/MapView';
 import IssueDetailDrawer from './components/IssueDetailDrawer';
 import WorkOrdersView from './components/WorkOrdersView';
@@ -21,6 +23,7 @@ export default function App() {
   const [lastUpdated, setLastUpdated] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [denialModal, setDenialModal] = useState({ open: false, message: '' });
+  const [bytesModalOpen, setBytesModalOpen] = useState(false);
 
   // Load state from backend
   const loadData = useCallback(async (showIndicator = false) => {
@@ -82,6 +85,12 @@ export default function App() {
       {/* KPI Overview Bar */}
       <KPIRow kpis={kpis} />
 
+      {/* Demo Control Bar for Loop 7 */}
+      <DemoControlPanel
+        onRefresh={() => loadData(true)}
+        onOpenBytesModal={() => setBytesModalOpen(true)}
+      />
+
       {/* Main Content Body */}
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         
@@ -140,6 +149,12 @@ export default function App() {
         message={denialModal.message}
         onClose={() => setDenialModal({ open: false, message: '' })}
         currentRole={currentRole}
+      />
+
+      {/* Bytes vs 720p Video Analysis Modal */}
+      <BytesComparisonModal
+        isOpen={bytesModalOpen}
+        onClose={() => setBytesModalOpen(false)}
       />
 
     </div>

@@ -73,3 +73,38 @@ export async function fetchAuditLogs(userRole = 'admin', limit = 50) {
   }
   return res.json();
 }
+
+export async function simulatePass(passNumber = 1, seed = 42, busId = null) {
+  const res = await fetch(`${API_BASE}/demo/simulate-pass`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ pass_number: passNumber, seed, bus_id: busId }),
+  });
+  if (!res.ok) throw new Error(`Simulate pass failed: ${res.statusText}`);
+  return res.json();
+}
+
+export async function triggerRedetectionCheck(busId = 'RJ14-12', detectedIssueIds = []) {
+  const res = await fetch(`${API_BASE}/demo/redetection-check`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ bus_id: busId, detected_issue_ids: detectedIssueIds }),
+  });
+  if (!res.ok) throw new Error(`Redetection check failed: ${res.statusText}`);
+  return res.json();
+}
+
+export async function resetDemo(seed = 42) {
+  const res = await fetch(`${API_BASE}/demo/reset?seed=${seed}`, {
+    method: 'POST',
+  });
+  if (!res.ok) throw new Error(`Demo reset failed: ${res.statusText}`);
+  return res.json();
+}
+
+export async function fetchBytesComparison() {
+  const res = await fetch(`${API_BASE}/demo/bytes-comparison`);
+  if (!res.ok) throw new Error(`Failed to fetch bandwidth comparison: ${res.statusText}`);
+  return res.json();
+}
+

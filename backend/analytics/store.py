@@ -66,11 +66,21 @@ class DataStore:
 
     def __init__(self) -> None:
         self.events: list[DetectionEvent] = []
+        self.seen_event_ids: set[str] = set()
         self.issues: list[ClusteredIssue] = []
         self.work_orders: list[WorkOrder] = []
         self.audit_logs: list[AuditLogEntry] = []
         self.users: dict[str, User] = dict(DEFAULT_USERS)
         self.corroborator = CorroborationEngine(cluster_radius_meters=35.0)
+        self.traffic_engine = TrafficAnalyticsEngine()
+
+    def reset_state(self) -> None:
+        """Reset state for clean deterministic testing."""
+        self.events.clear()
+        self.seen_event_ids.clear()
+        self.issues.clear()
+        self.work_orders.clear()
+        self.audit_logs.clear()
         self.traffic_engine = TrafficAnalyticsEngine()
 
     def add_audit(
@@ -99,7 +109,16 @@ class DataStore:
         return entry
 
     def ingest_event(self, event: DetectionEvent) -> ClusteredIssue | None:
-        """Store raw event, update traffic counts, and cluster into issues."""
+        """Store raw event, update traffic counts, and cluster into issues with idempotent event_id check."""
+        # Idempotency check: if event_id has already been processed, skip re-processing
+        if event.event_id in self.seen_event_ids:
+            logger.info("Duplicate event_id %s ignored (idempotent sync).", event.event_id)
+            for issue in self.issues:
+                if event.event_id in issue.event_ids:
+                    return issue
+            return None
+
+        self.seen_event_ids.add(event.event_id)
         self.events.append(event)
 
         # Traffic aggregation
@@ -132,6 +151,119 @@ class DataStore:
                 self._promote_to_work_order_if_needed(issue)
 
         return issue
+
+    def process_redetection_pass(
+        self,
+        bus_id: str,
+        detected_issue_ids: list[str],
+        surveyed_road_segments: list[str] | None = None,
+    ) -> dict[str, Any]:
+        """
+        Evaluate work orders during the next bus pass along a corridor.
+
+        - If a work order location was surveyed and NO defect detected:
+          -> Propose closure / mark 'CLOSED' with audit verification.
+        - If a defect is still detected:
+          -> Escalate priority and log persistence in audit trail.
+        """
+        closed_wos: list[str] = []
+        escalated_wos: list[str] = []
+
+        for wo in self.work_orders:
+            # Check if this work order's segment was surveyed
+            is_surveyed = True
+            if surveyed_road_segments and wo.road_segment not in surveyed_road_segments:
+                is_surveyed = False
+
+            if not is_surveyed:
+                continue
+
+            if wo.issue_id not in detected_issue_ids:
+                # No defect detected on next bus pass!
+                if wo.status in {WorkOrderStatus.COMPLETED, WorkOrderStatus.ASSIGNED, WorkOrderStatus.IN_PROGRESS, WorkOrderStatus.ACKNOWLEDGED}:
+                    old_status = wo.status
+                    wo.status = WorkOrderStatus.CLOSED
+                    wo.updated_at = datetime.now(UTC)
+                    wo.history.append(
+                        WorkOrderHistoryItem(
+                            action="REDETECTION_VERIFIED_CLOSED",
+                            user_id=bus_id,
+                            username=f"Bus Sensing Unit ({bus_id})",
+                            role=UserRole.ADMIN,
+                            comment=f"Zero defect detected on subsequent pass by {bus_id}. Verified repaired.",
+                        )
+                    )
+                    issue = self.get_issue_by_id(wo.issue_id)
+                    if issue:
+                        issue.status = IssueStatus.CLOSED
+
+                    self.add_audit(
+                        user=None,
+                        action="WORK_ORDER_VERIFIED_CLOSED",
+                        resource_type="work_order",
+                        resource_id=wo.work_order_id,
+                        details=f"Work order {wo.work_order_id} verified repaired and closed by pass of {bus_id}.",
+                    )
+                    closed_wos.append(wo.work_order_id)
+            else:
+                # Defect still detected on next pass!
+                if wo.status in {WorkOrderStatus.ASSIGNED, WorkOrderStatus.IN_PROGRESS, WorkOrderStatus.ACKNOWLEDGED}:
+                    wo.status = WorkOrderStatus.ESCALATED
+                    wo.priority_score = min(100, wo.priority_score + 10)
+                    wo.updated_at = datetime.now(UTC)
+                    wo.history.append(
+                        WorkOrderHistoryItem(
+                            action="REDETECTION_PERSISTENT_ESCALATED",
+                            user_id=bus_id,
+                            username=f"Bus Sensing Unit ({bus_id})",
+                            role=UserRole.ADMIN,
+                            comment=f"Defect persisted on subsequent pass by {bus_id}. Escalated priority to {wo.priority_score}.",
+                        )
+                    )
+                    self.add_audit(
+                        user=None,
+                        action="WORK_ORDER_ESCALATED",
+                        resource_type="work_order",
+                        resource_id=wo.work_order_id,
+                        details=f"Work order {wo.work_order_id} escalated: defect persisted during pass of {bus_id}.",
+                    )
+                    escalated_wos.append(wo.work_order_id)
+
+        return {
+            "bus_id": bus_id,
+            "closed_work_orders": closed_wos,
+            "escalated_work_orders": escalated_wos,
+            "timestamp": datetime.now(UTC).isoformat(),
+        }
+
+    def get_bandwidth_comparison(self) -> dict[str, Any]:
+        """
+        Calculate transmitted byte savings of FleetSight compact JSON events
+        vs continuous 720p H.264 video streaming.
+        """
+        # Average FleetSight JSON event = ~320 bytes
+        event_count = len(self.events)
+        total_event_bytes = event_count * 320
+
+        # Continuous 720p 30fps H.264 stream = ~2.5 Mbps = ~312.5 KB/s = 18.75 MB/min
+        # For a 1-hour bus route = ~1.125 GB
+        # Active survey duration based on 48.6 km @ 25 km/h = ~1.944 hours = ~7000 seconds
+        survey_seconds = 7000
+        video_stream_bytes = int(survey_seconds * 312500)  # ~2.18 GB
+
+        saved_bytes = max(0, video_stream_bytes - total_event_bytes)
+        reduction_pct = round((saved_bytes / max(1, video_stream_bytes)) * 100, 2)
+
+        return {
+            "events_count": event_count,
+            "events_bytes_total": total_event_bytes,
+            "events_bytes_formatted": f"{total_event_bytes / 1024:.1f} KB",
+            "video_stream_bytes": video_stream_bytes,
+            "video_stream_formatted": f"{video_stream_bytes / (1024 * 1024):.1f} MB",
+            "bandwidth_reduction_pct": reduction_pct,
+            "target_reduction_pct": 90.0,
+            "meets_target": reduction_pct >= 90.0,
+        }
 
     def _promote_to_work_order_if_needed(self, issue: ClusteredIssue) -> WorkOrder | None:
         """Create a work-order candidate for high priority verified issues."""
